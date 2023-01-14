@@ -5,9 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ArmSub;
+import frc.robot.subsystems.ClawSub;
+import frc.robot.subsystems.DriveSub;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -19,15 +21,50 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public static RobotContainer m_robotContainer = new RobotContainer();
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final ClawSub m_ClawSub = new ClawSub();
+  public final ArmSub m_ArmSub = new ArmSub();
+  public final DriveSub m_DriveSub = new DriveSub();
+  
 
+
+  //joysticks
+  
+  private Joystick rightStick = null;
+  private Joystick leftStick = null;
+  private XboxController xboxOne = null;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+
+    // redefining joysticks
+    try{
+      xboxOne = new XboxController(3);
+    }catch(Exception e){
+      System.out.println("Error with Xbox controller init");
+    }
+    try
+    {
+      rightStick = new Joystick(1);
+    }catch(Exception e){
+      System.out.println("Error w/ right joystick init");
+    }
+
+    try
+    {
+      leftStick = new Joystick(0);
+    }catch(Exception e){
+      System.out.println("Error w/ left joystick init");
+    }
+
+    
+
     // Configure the trigger bindings
     configureBindings();
   }
@@ -43,12 +80,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+        //.onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
@@ -58,6 +95,23 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    //return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
   }
+
+  public static RobotContainer getInstance() {
+    return m_robotContainer;
+  }
+
+  public Joystick getleftStick() {
+    return leftStick;
+}
+
+public Joystick getrightStick() {
+    return rightStick;
+}
+
+public XboxController getxbox() {
+  return xboxOne;
+}
 }
