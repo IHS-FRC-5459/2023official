@@ -72,8 +72,10 @@ public class DriveSub extends SubsystemBase {
 
       //convert encoder counts to distance.
       double dist = averagePosition/Constants.distancePerPulse;
-      return dist;
+      return dist;//in inches
   }
+
+
 
   //get angle
   public double getYaw()
@@ -84,9 +86,9 @@ public class DriveSub extends SubsystemBase {
   }
 
   //get pitch up/down
-  public double getPitch()
+  public double getRoll()
   {
-    double pitch = imu.getPitch();
+    double pitch = imu.getRoll();
     return pitch;
   }
 

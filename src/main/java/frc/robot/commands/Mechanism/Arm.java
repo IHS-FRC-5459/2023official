@@ -13,6 +13,8 @@ public class Arm extends CommandBase {
   int mode;
   int level;
 
+  boolean hasReached = false;
+
   //parameter action: 0 => pivot 1=> extend with x pwr
   public Arm(double pwr, int action) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -92,6 +94,8 @@ public class Arm extends CommandBase {
       {
         Robot.m_robotContainer.m_ArmSub.setExtend(pwr);
       }
+
+      hasReached = true;
     }
 
   // Called once the command ends or is interrupted.
@@ -114,6 +118,10 @@ public class Arm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(hasReached)
+    {
+      return true;
+    }
     return false;
   }
 }

@@ -23,13 +23,10 @@ public final class Constants {
       private static final double driveRatio = 6/1;
       public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * encoderResolution));
 
-    //camera info
-      public final static double cameraAngle = 33; //degrees
-      public final static double cameraHeight = 22; //inches
-      public final static double goalHeight = 102;//inches
+
 
       //robot drive characterization
-      public final static double drivetrain_kA = 0.4;
+      public final static double drivetrain_kA = 0.12;
 
       //arm to level distances in ticks 
       public final static double ticksToMid = 500;

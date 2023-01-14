@@ -8,14 +8,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class ArmSub extends SubsystemBase {
 
   //create falcon 500
   WPI_TalonFX pivotMotor = new WPI_TalonFX(6);
   WPI_TalonFX extendMotor = new WPI_TalonFX(7);
+  DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
   public ArmSub() {
@@ -40,6 +41,11 @@ public class ArmSub extends SubsystemBase {
   public double getTicks()
   {
     return extendMotor.getSelectedSensorPosition();
+  }
+
+  public boolean getLimitSwitch()
+  {
+    return bottomLimit.get();
   }
 
 
