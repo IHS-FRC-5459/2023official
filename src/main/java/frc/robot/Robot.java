@@ -18,7 +18,7 @@ import frc.robot.commands.Drive;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  public static RobotContainer m_robotContainer;
   private Command driveCommand;
 
 
@@ -30,9 +30,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-   // m_robotContainer = new RobotContainer();
-    m_robotContainer = RobotContainer.getInstance();
-    driveCommand = new Drive(m_robotContainer.m_DriveSub);
+    m_robotContainer = new RobotContainer();
+    //m_robotContainer = RobotContainer.getInstance();
+    driveCommand = new Drive();
 
   }
 

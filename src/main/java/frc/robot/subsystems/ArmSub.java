@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ArmSub extends SubsystemBase {
 
@@ -23,6 +24,7 @@ public class ArmSub extends SubsystemBase {
     extendMotor.setNeutralMode(NeutralMode.Brake);
 
 
+
   }
 
   public void setPivot(double pwr)
@@ -34,6 +36,15 @@ public class ArmSub extends SubsystemBase {
   {
     extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
+
+  public double getTicks()
+  {
+    return extendMotor.getSelectedSensorPosition();
+  }
+
+
+
+  
 
 
   @Override

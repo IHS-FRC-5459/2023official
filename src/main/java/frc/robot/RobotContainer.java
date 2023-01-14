@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  public static RobotContainer m_robotContainer = new RobotContainer();
+ // public static RobotContainer m_robotContainer = new RobotContainer();
   // The robot's subsystems and commands are defined here...
   //public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final ClawSub m_ClawSub = new ClawSub();
@@ -99,9 +99,7 @@ public class RobotContainer {
     return null;
   }
 
-  public static RobotContainer getInstance() {
-    return m_robotContainer;
-  }
+
 
   public Joystick getleftStick() {
     return leftStick;
