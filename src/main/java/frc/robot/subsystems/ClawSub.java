@@ -14,12 +14,12 @@ public class ClawSub extends SubsystemBase {
   private CANSparkMax neoClaw;
   /** Creates a new ClawSub. */
   public ClawSub() {
-    neoClaw = new CANSparkMax(5, MotorType.kBrushless);
+    //neoClaw = new CANSparkMax(5, MotorType.kBrushless);
   }
 
   public void setClaw(double pwr)
   {
-    neoClaw.set(pwr);
+   // neoClaw.set(pwr);
   }
 
   @Override

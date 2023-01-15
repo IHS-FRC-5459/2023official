@@ -4,9 +4,13 @@
 
 package frc.robot.commands.Mechanism;
 
+import javax.swing.text.Utilities;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.Utilities.FullyRetract;
 
 public class Arm extends CommandBase {
   double power;
@@ -41,6 +45,8 @@ public class Arm extends CommandBase {
         Robot.m_robotContainer.m_ArmSub.setExtend(0);  
         break;
       case 2://to ticks
+        Command command = new FullyRetract(0.25);
+        command.schedule();
         Robot.m_robotContainer.m_ArmSub.setExtend(0);
         break;
       

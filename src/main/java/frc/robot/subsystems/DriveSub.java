@@ -7,11 +7,11 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.Constants;
 
 public class DriveSub extends SubsystemBase {
@@ -27,38 +27,69 @@ public class DriveSub extends SubsystemBase {
   //IMU unit
   private Pigeon2 imu;
 
-
+  private TalonSRX left1;
+  private TalonSRX left2;
+  private TalonSRX right1;
+  private TalonSRX right2;
   
   /** Creates a new DriveSub. */
   public DriveSub() {
     //set motor id's 
-    neo1 = new CANSparkMax(1, MotorType.kBrushless);
+    /*neo1 = new CANSparkMax(1, MotorType.kBrushless);
     neo2 = new CANSparkMax(2, MotorType.kBrushless);
     neo3 = new CANSparkMax(3, MotorType.kBrushless);
     neo4 = new CANSparkMax(4, MotorType.kBrushless);
+*/
+
 
     //set right side inverted
-    neo3.setInverted(true);
-    neo4.setInverted(true);
+ //   neo3.setInverted(true);
+ //   neo4.setInverted(true);
 
     //instatiate pigeon IMU
-    imu = new Pigeon2(0);
+    imu = new Pigeon2(5);
 
     //motor encoders
-    leftEN = neo1.getEncoder();
-    rightEN = neo4.getEncoder();
+  //  leftEN = neo1.getEncoder();
+ //   rightEN = neo4.getEncoder();
 
 
+
+    left1 = new TalonSRX(0);
+ //addChild("left1",left1);
+ left1.setInverted(true);
+
+left2 = new TalonSRX(1);
+ //addChild("left2",left2);
+ left2.setInverted(true);
+
+
+ 
+
+right1 = new TalonSRX(2);
+ //addChild("right1",right1);
+ right1.setInverted(false);
+
+right2 = new TalonSRX(3);
+ //addChild("right2",right2);
+ right2.setInverted(false);
 
   }
 
   //sets drivebase speeds - by side l/r
   public void setDrive(double left, double right)
   {
+    /* 
     neo1.set(left);
     neo2.set(left);
     neo3.set(right);
     neo4.set(right);
+    */
+
+    left1.set(ControlMode.PercentOutput, left);
+            left2.set(ControlMode.PercentOutput, left);
+            right1.set(ControlMode.PercentOutput, right);
+            right2.set(ControlMode.PercentOutput, right);
   }
 
   //get distance travelled
@@ -85,10 +116,10 @@ public class DriveSub extends SubsystemBase {
 
   }
 
-  //get pitch up/down
-  public double getRoll()
+  //get ppitch up/down
+  public double getPitch()
   {
-    double pitch = imu.getRoll();
+    double pitch = imu.getPitch();
     return pitch;
   }
 
