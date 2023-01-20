@@ -16,15 +16,13 @@ import frc.robot.Constants;
 
 public class DriveSub extends SubsystemBase {
 
-    //Drivetrain Neos
-  /*
-   * 1 & 2 => left
-   * 3 & 4 => right (inverse)
-   */
+ 
+  // created motors
   private CANSparkMax neo1, neo2, neo3, neo4;
   // encoders
   private RelativeEncoder leftEN, rightEN;
   //IMU unit
+  // used to see roll, yaw, and pitch of the robot. Used for leveling, and truning. Basically like a gyro.
   private Pigeon2 imu;
 
 
@@ -37,11 +35,11 @@ public class DriveSub extends SubsystemBase {
     neo3 = new CANSparkMax(3, MotorType.kBrushless);
     neo4 = new CANSparkMax(4, MotorType.kBrushless);
 
-    //set right side inverted
+    //set right side motors inverted
     neo3.setInverted(true);
     neo4.setInverted(true);
 
-    //instatiate pigeon IMU
+    //instatiate pigeon IMU   make pigeon actually do stuff    
     imu = new Pigeon2(0);
 
     //motor encoders
@@ -77,7 +75,7 @@ public class DriveSub extends SubsystemBase {
 
 
 
-  //get angle
+  //get angle  // left and right
   public double getYaw()
   {
     double yaw = imu.getYaw();
@@ -85,11 +83,11 @@ public class DriveSub extends SubsystemBase {
 
   }
 
-  //get pitch up/down
+  //get roll // up/down
   public double getRoll()
   {
-    double pitch = imu.getRoll();
-    return pitch;
+    double roll = imu.getRoll();
+    return roll;
   }
 
 

@@ -9,27 +9,33 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class Arm extends CommandBase {
-  double power;
-  int mode;
-  int level;
+  static double power;
+  static int mode;
+  static int level;
+  static int ticks;
+  static boolean hasReached = false;
 
-  boolean hasReached = false;
-
-  //parameter action: 0 => pivot 1=> extend with x pwr
-  public Arm(double pwr, int action) {
+  //parameter action: 0 => pivot 1=> extend to x ticks 2=> extend to level
+  //if not using tks, for action1, set tks to 0;
+  // if not using lvl, for action2, set lvl to 0;
+  public Arm(double pwr, int action, int tks, int lvl) {
     // Use addRequirements() here to declare subsystem dependencies.
     power = pwr;
     mode = action;
+    level = lvl;
+    ticks = tks;
   }
 
   // pwr = arm power, action => 2 by default, level => 2 or 3 for mid/high
-  public Arm(double pwr, int action, int level)
+  
+  
+  /*public Arm(double pwr, int action, int level)
   {
     power = pwr;
     action = 2;
     this.level = level;
 
-  }
+                                                                                        }         Why do we need this???????         */
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -40,7 +46,7 @@ public class Arm extends CommandBase {
       case 1://arm
         Robot.m_robotContainer.m_ArmSub.setExtend(0);  
         break;
-      case 2://to ticks
+      case 2://to level
         Robot.m_robotContainer.m_ArmSub.setExtend(0);
         break;
       
@@ -56,10 +62,10 @@ public class Arm extends CommandBase {
       case 0://pivot
         Robot.m_robotContainer.m_ArmSub.setPivot(power);
         break;
-      case 1://arm
-        Robot.m_robotContainer.m_ArmSub.setExtend(power);  
+      case 1:// to ticks
+        extendToTicks(ticks, power);
         break;
-      case 2://to ticks
+      case 2://to level
         if(level==2)
         {
           extendToTicks(Constants.ticksToMid, power);  

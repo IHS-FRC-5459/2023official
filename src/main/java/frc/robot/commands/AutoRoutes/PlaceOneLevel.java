@@ -22,7 +22,7 @@ public class PlaceOneLevel extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Arm(0.3, 2, 3),
+      new Arm(0.3, 2, 0, 3),
       new ParallelRaceGroup(new WaitCommand(0.5), new Claw(-0.2)),
       new FullyRetract(-0.3),
       new DriveToDistance(140, 0.5),

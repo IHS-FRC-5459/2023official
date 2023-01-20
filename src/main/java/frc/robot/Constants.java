@@ -20,15 +20,15 @@ public final class Constants {
       //drive base encoder information
       public static final double driveWheelCirc = 6 * Math.PI;
       public static final double encoderResolution = 42;
-      private static final double driveRatio = 6/1;
+      private static final double driveRatio = 4.5/1; // needs to be affirmed for 2nd time
       public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * encoderResolution));
-
+      public static final int distForArmToExToGetConeInTicks = 1000; // needs to be correct
 
 
       //robot drive characterization
-      public final static double drivetrain_kA = 0.12;
+      public final static double drivetrain_kA = 0.12; // I think needs to be correct
 
       //arm to level distances in ticks 
-      public final static double ticksToMid = 500;
-      public final static double ticksToHigh = 1000;
+      public final static double ticksToMid = 500; //needs to be correct
+      public final static double ticksToHigh = 1000; //needs to be correct
 }

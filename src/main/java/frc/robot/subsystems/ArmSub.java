@@ -27,22 +27,22 @@ public class ArmSub extends SubsystemBase {
 
 
   }
-
+  // sets pivot motros to  a speed
   public void setPivot(double pwr)
   {
     pivotMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
-
+// sets arm to a speed
   public void setExtend(double pwr)
   {
     extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
-
+// gets encoder value of arm
   public double getTicks()
   {
     return extendMotor.getSelectedSensorPosition();
   }
-
+// sees if the arm is fully reatracted
   public boolean getLimitSwitch()
   {
     return bottomLimit.get();

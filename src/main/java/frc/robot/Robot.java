@@ -5,9 +5,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drive;
+import frc.robot.commands.AutoRoutes.LeftAuto;
+import frc.robot.commands.AutoRoutes.LeftLevelAuto;
+import frc.robot.commands.AutoRoutes.MiddleAuto;
+import frc.robot.commands.AutoRoutes.MiddleLevelAuto;
+import frc.robot.commands.AutoRoutes.PlaceOne;
+import frc.robot.commands.AutoRoutes.PlaceOneLevel;
+import frc.robot.commands.AutoRoutes.RightAuto;
+import frc.robot.commands.AutoRoutes.RightLevelAuto;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,7 +30,7 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer m_robotContainer;
   private Command driveCommand;
-
+  private SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,6 +43,15 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     //m_robotContainer = RobotContainer.getInstance();
     driveCommand = new Drive();
+    autoChooser.addOption("Left Auto", new LeftAuto());
+    autoChooser.addOption("Left Level", new LeftLevelAuto());
+    autoChooser.addOption("Middle Auto", new MiddleAuto());
+    autoChooser.addOption("Middle Level Auto", new MiddleLevelAuto());
+    autoChooser.addOption("Place One", new PlaceOne());
+    autoChooser.addOption("Place One Level", new PlaceOneLevel());
+    autoChooser.addOption("Right Auto", new RightAuto());
+    autoChooser.addOption("Right Level Auto", new RightLevelAuto());
+    SmartDashboard.putData("Auto Mode", autoChooser);
 
   }
 
@@ -62,7 +81,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = autoChooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
