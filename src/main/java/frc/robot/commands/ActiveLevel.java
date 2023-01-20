@@ -30,12 +30,11 @@ public class ActiveLevel extends CommandBase {
   public void execute() {
 
     double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
-    System.out.println(pitch);
     if(pitch < deadspace && pitch > -deadspace)
     {
       Robot.m_robotContainer.m_DriveSub.setDrive(0, 0);
     } else {
-      double power = MathUtil.clamp(-1, 1, sensitivity * (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+      double power = sensitivity * (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(pitch)));
       Robot.m_robotContainer.m_DriveSub.setDrive(power, power);
     }
 

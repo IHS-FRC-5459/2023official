@@ -89,7 +89,7 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-      xboxOne.b().whileTrue(new ActiveLevel(0, 1));    
+      xboxOne.b().whileTrue(new ActiveLevel(0, 1.5));    
 
     
   }
