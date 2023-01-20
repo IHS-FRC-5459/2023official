@@ -11,20 +11,21 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSub extends SubsystemBase {
 
-    //Drivetrain Neos
-  /*
-   * 1 & 2 => left
-   * 3 & 4 => right (inverse)
-   */
+ 
+  // created motors
   private CANSparkMax neo1, neo2, neo3, neo4;
   // encoders
   private RelativeEncoder leftEN, rightEN;
+  private Encoder driveEnc;
   //IMU unit
+  // used to see roll, yaw, and pitch of the robot. Used for leveling, and truning. Basically like a gyro.
   private Pigeon2 imu;
 
   private TalonSRX left1;
@@ -42,12 +43,12 @@ public class DriveSub extends SubsystemBase {
 */
 
 
-    //set right side inverted
- //   neo3.setInverted(true);
- //   neo4.setInverted(true);
+    //set right side motors inverted
+    neo3.setInverted(true);
+    neo4.setInverted(true);
 
-    //instatiate pigeon IMU
-    imu = new Pigeon2(5);
+    //instatiate pigeon IMU   make pigeon actually do stuff    
+    imu = new Pigeon2(0);
 
     //motor encoders
   //  leftEN = neo1.getEncoder();
@@ -64,15 +65,11 @@ left2 = new TalonSRX(1);
  left2.setInverted(true);
 
 
- 
+    driveEnc = new Encoder(5,6,true,EncodingType.k4X);
+    addChild("driveEnc", driveEnc);
+    driveEnc.setDistancePerPulse(Constants.distancePerPulse);
 
-right1 = new TalonSRX(2);
- //addChild("right1",right1);
- right1.setInverted(false);
 
-right2 = new TalonSRX(3);
- //addChild("right2",right2);
- right2.setInverted(false);
 
   }
 
@@ -96,19 +93,20 @@ right2 = new TalonSRX(3);
   public double getDistance()
   {
       //get encoders
-      double leftDistance = leftEN.getPosition();
-      double rightDistance = rightEN.getPosition();
+      //double leftDistance = leftEN.getPosition();
+      //double rightDistance = rightEN.getPosition();
       //average position
-      double averagePosition = (leftDistance + rightDistance)/2;
+      //double averagePosition = (leftDistance + rightDistance)/2;
 
       //convert encoder counts to distance.
-      double dist = averagePosition/Constants.distancePerPulse;
+      //double dist = averagePosition/Constants.distancePerPulse;
+      double dist = driveEnc.getDistance();
       return dist;//in inches
   }
 
 
 
-  //get angle
+  //get angle  // left and right
   public double getYaw()
   {
     double yaw = imu.getYaw();

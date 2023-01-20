@@ -33,8 +33,12 @@ public class ActiveLevel extends CommandBase {
     if(pitch < deadspace && pitch > -deadspace)
     {
       Robot.m_robotContainer.m_DriveSub.setDrive(0, 0);
-    } else {
-      double power = sensitivity * (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(pitch)));
+    } 
+    // if robot is in wrong spot
+    else {
+      // gets required power to move
+      double power = MathUtil.clamp(-1, 1, sensitivity * (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(pitch))));
+      // moves robot
       Robot.m_robotContainer.m_DriveSub.setDrive(power, power);
     }
 
@@ -43,6 +47,7 @@ public class ActiveLevel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // stops robot
     Robot.m_robotContainer.m_DriveSub.setDrive(0, 0);
 
   }

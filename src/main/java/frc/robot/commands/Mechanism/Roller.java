@@ -2,40 +2,38 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Mechanism;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.DriveSub;
 
-public class Drive extends CommandBase {
-//joystick declarations
-  private Joystick leftJoystick = Robot.m_robotContainer.getleftStick();
-    private Joystick rightJoystick = Robot.m_robotContainer.getrightStick();
-
-  /** Creates a new Drive. */
-  public Drive() {
+public class Roller extends CommandBase {
+  /** Creates a new Roller. */
+  private static double power;
+  public Roller(double pwr) {
     // Use addRequirements() here to declare subsystem dependencies.
-
+    power = pwr;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
-    
+  public void initialize() {
+    // sets roller to 0 power
+    Robot.m_robotContainer.m_RollerSub.setRoller(0);
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // sets motors to joystick
-    Robot.m_robotContainer.m_DriveSub.setDrive(-leftJoystick.getY(), -rightJoystick.getY());
+     //sets roller to the desired power
+    Robot.m_robotContainer.m_RollerSub.setRoller(power);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // shuts motors off
-    Robot.m_robotContainer.m_DriveSub.setDrive(0.0, 0.0);
+    // sets roller to 0 when done
+    Robot.m_robotContainer.m_RollerSub.setRoller(0);
   }
 
   // Returns true when the command should end.
@@ -43,6 +41,4 @@ public class Drive extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-
-  
 }
