@@ -27,7 +27,7 @@ import frc.robot.commands.AutoRoutes.RightLevelAuto;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+// sets up sendable chooser
   public static RobotContainer m_robotContainer;
   private Command driveCommand;
   private SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     //m_robotContainer = RobotContainer.getInstance();
+    // sets u snedable chooser
     driveCommand = new Drive();
     autoChooser.addOption("Left Auto", new LeftAuto());
     autoChooser.addOption("Left Level", new LeftLevelAuto());
