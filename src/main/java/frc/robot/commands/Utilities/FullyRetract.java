@@ -18,20 +18,20 @@ public class FullyRetract extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.m_robotContainer.m_ArmSub.setExtend(0);
+    Robot.m_robotContainer.m_ArmSub.setExtend(0); // turns off arm
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.m_robotContainer.m_ArmSub.setExtend(pwr);
+    Robot.m_robotContainer.m_ArmSub.setExtend(-pwr); // brings arm back 
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_robotContainer.m_ArmSub.setExtend(0);
+    Robot.m_robotContainer.m_ArmSub.setExtend(0); // turns off arm
 
   }
 

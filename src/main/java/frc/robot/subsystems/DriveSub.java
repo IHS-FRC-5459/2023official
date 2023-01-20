@@ -10,8 +10,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.Constants;
 
 public class DriveSub extends SubsystemBase {
@@ -21,6 +21,7 @@ public class DriveSub extends SubsystemBase {
   private CANSparkMax neo1, neo2, neo3, neo4;
   // encoders
   private RelativeEncoder leftEN, rightEN;
+  private Encoder driveEnc;
   //IMU unit
   // used to see roll, yaw, and pitch of the robot. Used for leveling, and truning. Basically like a gyro.
   private Pigeon2 imu;
@@ -46,6 +47,10 @@ public class DriveSub extends SubsystemBase {
     leftEN = neo1.getEncoder();
     rightEN = neo4.getEncoder();
 
+    driveEnc = new Encoder(5,6,true,EncodingType.k4X);
+    addChild("driveEnc", driveEnc);
+    driveEnc.setDistancePerPulse(Constants.distancePerPulse);
+
 
 
   }
@@ -63,13 +68,14 @@ public class DriveSub extends SubsystemBase {
   public double getDistance()
   {
       //get encoders
-      double leftDistance = leftEN.getPosition();
-      double rightDistance = rightEN.getPosition();
+      //double leftDistance = leftEN.getPosition();
+      //double rightDistance = rightEN.getPosition();
       //average position
-      double averagePosition = (leftDistance + rightDistance)/2;
+      //double averagePosition = (leftDistance + rightDistance)/2;
 
       //convert encoder counts to distance.
-      double dist = averagePosition/Constants.distancePerPulse;
+      //double dist = averagePosition/Constants.distancePerPulse;
+      double dist = driveEnc.getDistance();
       return dist;//in inches
   }
 
