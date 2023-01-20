@@ -17,7 +17,7 @@ import frc.robot.commands.Utilities.FullyRetract;
 import frc.robot.commands.Utilities.TurnToAngle;
 
 /** Add your docs here. */
-public class LeftAuto  extends SequentialCommandGroup {
+public class LeftAuto extends SequentialCommandGroup {
   public LeftAuto(){
     addCommands(
         // placing cone

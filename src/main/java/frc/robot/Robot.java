@@ -7,8 +7,11 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drive;
 import frc.robot.commands.AutoRoutes.LeftAuto;
 import frc.robot.commands.AutoRoutes.LeftLevelAuto;
@@ -30,7 +33,7 @@ public class Robot extends TimedRobot {
 // sets up sendable chooser
   public static RobotContainer m_robotContainer;
   private Command driveCommand;
-  private SendableChooser<Command> autoChooser = new SendableChooser<>();
+  private SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
