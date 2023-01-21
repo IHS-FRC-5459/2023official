@@ -14,15 +14,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSub extends SubsystemBase {
 
   //create falcon 500
-  WPI_TalonFX pivotMotor = new WPI_TalonFX(6);
-  WPI_TalonFX extendMotor = new WPI_TalonFX(7);
-  DigitalInput bottomLimit = new DigitalInput(0);
+  //WPI_TalonFX pivotMotor = new WPI_TalonFX(6);
+ // WPI_TalonFX extendMotor = new WPI_TalonFX(7);
+ // DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
   public ArmSub() {
 
-    pivotMotor.setNeutralMode(NeutralMode.Brake);
-    extendMotor.setNeutralMode(NeutralMode.Brake);
+   // pivotMotor.setNeutralMode(NeutralMode.Brake);
+    //extendMotor.setNeutralMode(NeutralMode.Brake);
 
 
 
@@ -30,22 +30,22 @@ public class ArmSub extends SubsystemBase {
   // sets pivot motros to  a speed
   public void setPivot(double pwr)
   {
-    pivotMotor.set(TalonFXControlMode.PercentOutput, pwr);
+   // pivotMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
 // sets arm to a speed
   public void setExtend(double pwr)
   {
-    extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
+   // extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
 // gets encoder value of arm
   public double getTicks()
-  {
-    return extendMotor.getSelectedSensorPosition();
+  {return 0;
+  //  return extendMotor.getSelectedSensorPosition();
   }
 // sees if the arm is fully reatracted
   public boolean getLimitSwitch()
-  {
-    return bottomLimit.get();
+  { return false;
+   // return bottomLimit.get();
   }
 
 

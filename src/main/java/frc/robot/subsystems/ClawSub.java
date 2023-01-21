@@ -16,20 +16,20 @@ public class ClawSub extends SubsystemBase {
   private static RelativeEncoder neoClawEN;
   /** Creates a new ClawSub. */
   public ClawSub() {
-    neoClaw = new CANSparkMax(5, MotorType.kBrushless);
-    neoClaw.setInverted(false);
+   // neoClaw = new CANSparkMax(5, MotorType.kBrushless);
+   // neoClaw.setInverted(false);
   }
   // sets power of claw motor
   public void setClaw(double pwr)
   {
-    neoClaw.set(pwr);
-    neoClawEN = neoClaw.getEncoder();
+   // neoClaw.set(pwr);
+   // neoClawEN = neoClaw.getEncoder();
   }
   // gets encoder value of claw
   public double getEncoder()
-  {
-    neoClawEN = neoClaw.getEncoder();
-    return neoClawEN.getPosition();
+  {return 0;
+ //   neoClawEN = neoClaw.getEncoder();
+   // return neoClawEN.getPosition();
   }
 
   @Override

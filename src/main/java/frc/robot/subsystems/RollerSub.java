@@ -19,18 +19,19 @@ public class RollerSub extends SubsystemBase{
 
     public RollerSub(){
         // setting stuff up
-        neoR = new CANSparkMax(7,  MotorType.kBrushless);
-        neoR.setInverted(true);
+        //neoR = new CANSparkMax(7,  MotorType.kBrushless);
+        //neoR.setInverted(true);
     }
     // get encoder
     public double getEncoder(){
-        neoREN = neoR.getEncoder();
-        return neoREN.getPosition();
+       // neoREN = neoR.getEncoder();
+        //return neoREN.getPosition();
+        return 0;
     }
     // set speed of roller
     public void setRoller(double pwr){
-        neoR.set(pwr);
-        neoREN = neoR.getEncoder();
+       // neoR.set(pwr);
+      //  neoREN = neoR.getEncoder();
     }
 
 }

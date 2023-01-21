@@ -94,7 +94,7 @@ public class Arm extends CommandBase {
           break;
       }
     }
-  
+  // enxtneds arm to ticks
     public void extendToTicks(double ticks, double pwr)
     {
       double startTicks = Robot.m_robotContainer.m_ArmSub.getTicks();

@@ -32,6 +32,8 @@ public class DriveSub extends SubsystemBase {
   private TalonSRX left2;
   private TalonSRX right1;
   private TalonSRX right2;
+  public double dist = 0;
+  public double ang = 0;
   
   /** Creates a new DriveSub. */
   public DriveSub() {
@@ -44,25 +46,35 @@ public class DriveSub extends SubsystemBase {
 
 
     //set right side motors inverted
-    neo3.setInverted(true);
-    neo4.setInverted(true);
+   // neo3.setInverted(true);
+   // neo4.setInverted(true);
 
     //instatiate pigeon IMU   make pigeon actually do stuff    
-    imu = new Pigeon2(0);
+    imu = new Pigeon2(5);
 
     //motor encoders
   //  leftEN = neo1.getEncoder();
  //   rightEN = neo4.getEncoder();
 
 
-
-    left1 = new TalonSRX(0);
+ left1 = new TalonSRX(0);
  //addChild("left1",left1);
  left1.setInverted(true);
 
 left2 = new TalonSRX(1);
  //addChild("left2",left2);
  left2.setInverted(true);
+
+
+ 
+
+right1 = new TalonSRX(2);
+ //addChild("right1",right1);
+ right1.setInverted(false);
+
+right2 = new TalonSRX(3);
+ //addChild("right2",right2);
+ right2.setInverted(false);
 
 
     driveEnc = new Encoder(5,6,true,EncodingType.k4X);
@@ -104,6 +116,18 @@ left2 = new TalonSRX(1);
       return dist;//in inches
   }
 
+  
+
+  public void zeroYaw()
+  {
+    imu.setYaw(0);
+    
+  }
+
+  public void zeroEnc()
+  {
+    driveEnc.reset();
+  }
 
 
   //get angle  // left and right
@@ -126,5 +150,7 @@ left2 = new TalonSRX(1);
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    dist = getDistance();
+    ang = getYaw();
   }
 }

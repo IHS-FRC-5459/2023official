@@ -21,6 +21,7 @@ import frc.robot.commands.AutoRoutes.PlaceOne;
 import frc.robot.commands.AutoRoutes.PlaceOneLevel;
 import frc.robot.commands.AutoRoutes.RightAuto;
 import frc.robot.commands.AutoRoutes.RightLevelAuto;
+import frc.robot.commands.AutoRoutes.threeft;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("Place One Level", new PlaceOneLevel());
     autoChooser.addOption("Right Auto", new RightAuto());
     autoChooser.addOption("Right Level Auto", new RightLevelAuto());
+    autoChooser.addOption("3 ft", new threeft());
     SmartDashboard.putData("Auto Mode", autoChooser);
 
     //camera
@@ -79,6 +81,13 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
+    SmartDashboard.putNumber("pitch", pitch);
+    SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+    SmartDashboard.putNumber("angle", m_robotContainer.m_DriveSub.ang);
+    SmartDashboard.putNumber("distance", m_robotContainer.m_DriveSub.dist);
+
+
 
   }
 
@@ -124,10 +133,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveCommand.execute();
-    double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
-
-    SmartDashboard.putNumber("pitch", pitch);
-    SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
 
 
   }

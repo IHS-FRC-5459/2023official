@@ -39,7 +39,7 @@ public class LeftAuto extends SequentialCommandGroup {
       new ParallelRaceGroup(new Arm(-0.3, 0, 0, 0)),
       // place
       new Arm(0, 0, 0, 0),
-      new TurnToAngle(0, 0.5),
+      new TurnToAngle(-4.74, 0.5),
       new Arm(0, 0, 0, 0),
       new ParallelRaceGroup(new Arm(0.3, 2, 0, 2)),
       new DriveToDistance(-12, 0.5),
