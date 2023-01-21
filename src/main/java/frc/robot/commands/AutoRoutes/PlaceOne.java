@@ -33,8 +33,8 @@ public class PlaceOne extends SequentialCommandGroup {
     addCommands(
       new Arm(0.3, 2, 0, 3),
       new ParallelRaceGroup(new WaitCommand(0.5), new Claw(-0.2)),
-      new FullyRetract(-0.3),
-      new DriveToDistance(140, 0.5)
+      new FullyRetract(-0.3)//,
+     // new DriveToDistance(140, 0.5)
     );
   }
 }

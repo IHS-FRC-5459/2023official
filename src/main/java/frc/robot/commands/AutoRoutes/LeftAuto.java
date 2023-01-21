@@ -25,24 +25,24 @@ public class LeftAuto extends SequentialCommandGroup {
       new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
       new FullyRetract(-0.3),
       // driving to other side
-      new DriveToDistance(12, 0.5),
+      //new DriveToDistance(12, 0.5),
       new TurnToAngle(4.74, 0.5),
       new ParallelRaceGroup( new Arm(0.3, 0, 0, 0)),
       new ParallelRaceGroup(new WaitCommand(4), new Roller(0.5)),
-      new DriveToDistance(193.66, 0.5),
+      //new DriveToDistance(193.66, 0.5),
       // pick up cone
       new ParallelRaceGroup(new Arm(0.3, 1, Constants.distForArmToExToGetConeInTicks, 0)),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(0.2)),
       new FullyRetract(-0.3),
       // go to place
-      new ParallelRaceGroup(new DriveToDistance(-193.66, 0.5)),
+   //   new ParallelRaceGroup(new DriveToDistance(-193.66, 0.5)),
       new ParallelRaceGroup(new Arm(-0.3, 0, 0, 0)),
       // place
       new Arm(0, 0, 0, 0),
       new TurnToAngle(-4.74, 0.5),
       new Arm(0, 0, 0, 0),
       new ParallelRaceGroup(new Arm(0.3, 2, 0, 2)),
-      new DriveToDistance(-12, 0.5),
+ //     new DriveToDistance(-12, 0.5),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
       new ParallelRaceGroup(new FullyRetract(-0.3))
     );

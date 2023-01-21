@@ -27,20 +27,20 @@ public class RightLevelAuto  extends SequentialCommandGroup {
         new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
         new FullyRetract(-0.3),
         // go to cone
-        new DriveToDistance(12, 0.5),
+     //   new DriveToDistance(12, 0.5),
         new TurnToAngle(-4.74, 0.5),
         new ParallelRaceGroup(new WaitCommand(4), new Roller(0.5)),
-        new DriveToDistance(193.66, 0.5),
+       // new DriveToDistance(193.66, 0.5),
         // get cone
         new ParallelRaceGroup(new Arm(0.3, 1, Constants.distForArmToExToGetConeInTicks, 0)),
         new ParallelRaceGroup( new WaitCommand(2), new Claw(0.2)),
         new FullyRetract(-0.3),
         /// go back
-        new ParallelRaceGroup(new DriveToDistance(-193.66, 0.5)),
+      //  new ParallelRaceGroup(new DriveToDistance(-193.66, 0.5)),
         new Arm(3, 0, 0, 0),
         new TurnToAngle(0, 0.5),
         new Arm(0, 0, 0, 0),
-        new DriveToDistance(-12, 0.5),
+ //       new DriveToDistance(-12, 0.5),
         // place cone
         new ParallelRaceGroup(new Arm(0.3, 2, 0, 2)),
         new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -49,10 +49,10 @@ public class RightLevelAuto  extends SequentialCommandGroup {
       // go to charging station 
       new TurnToAngle(-53.8, 0.5),
       
-      new DriveToDistance(49, 0.5),
+   //   new DriveToDistance(49, 0.5),
       
       new TurnToAngle(0, 0.5),
-      new DriveToDistance(36,0.5),
+//      new DriveToDistance(36,0.5),
       // level
       new ActiveLevel(0, 1)//IKS  what deadspace, sensitivity values should be
     );

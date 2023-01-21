@@ -8,11 +8,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class DriveToDistance extends CommandBase {
-  double goalDistance, power;
+  /*
+  take in angle we want to turn to (expectedAngle)
+  set expected angle as our "zero" angle to turn onto
+  when get angle, try to turn to expected ange
+   */
+  double goalDistance, power, expectedAngle, leftBias, rightBias;
   /** Creates a new DriveToDistance. */
-  public DriveToDistance(double goalDistance, double pwr) {
+  public DriveToDistance(double goalDistance, double expectedAngle, double pwr) {
     this.goalDistance = goalDistance;
     power = pwr;
+    this.expectedAngle = expectedAngle;
 
   }
 
@@ -24,7 +30,6 @@ public class DriveToDistance extends CommandBase {
     Robot.m_robotContainer.m_DriveSub.zeroYaw();
 
 
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,7 +37,8 @@ public class DriveToDistance extends CommandBase {
   public void execute() {
 
     double distLeft = goalDistance - Robot.m_robotContainer.m_DriveSub.dist;
-      double yawIntensity = -Robot.m_robotContainer.m_DriveSub.ang/100;
+      double yawIntensity = (-Robot.m_robotContainer.m_DriveSub.ang  - expectedAngle)/100;
+     
       if(distLeft <12)
       {
         power *= Math.pow(-1.05946, distLeft);
@@ -41,8 +47,9 @@ public class DriveToDistance extends CommandBase {
           power = 0.1;
         }
       }
-      Robot.m_robotContainer.m_DriveSub.setDrive(power + yawIntensity, power - yawIntensity);
-    
+      Robot.m_robotContainer.m_DriveSub.setDrive(power + yawIntensity , power - yawIntensity );
+      leftBias = 0;
+      rightBias = 0;
 
   }
 

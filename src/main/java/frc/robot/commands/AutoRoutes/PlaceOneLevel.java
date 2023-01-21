@@ -25,8 +25,8 @@ public class PlaceOneLevel extends SequentialCommandGroup {
       new Arm(0.3, 2, 0, 3),
       new ParallelRaceGroup(new WaitCommand(0.5), new Claw(-0.2)),
       new FullyRetract(-0.3),
-      new DriveToDistance(140, 0.5),
-      new DriveToDistance(44, -0.5),
+   //   new DriveToDistance(140, 0.5),
+  //    new DriveToDistance(44, -0.5),
       new ActiveLevel(2, 0.8)
 
     );

@@ -26,14 +26,14 @@ public class MiddleAuto extends SequentialCommandGroup{
             new FullyRetract(-0.3),
             new ParallelRaceGroup(new WaitCommand(4), new Roller(0.5)),
             // go to cone
-            new DriveToDistance(189, 2),
+          //  new DriveToDistance(189, 2),
             // pick up cone
             new ParallelRaceGroup(new Arm(0.3, 1, Constants.distForArmToExToGetConeInTicks, 0)),
             new ParallelRaceGroup( new WaitCommand(2), new Claw(0.2)),
             new FullyRetract(-0.3),
             new Arm(3, 0, 0, 0),
             // drive back
-            new ParallelRaceGroup(new DriveToDistance(-189, 0.5)),
+        //    new ParallelRaceGroup(new DriveToDistance(-189, 0.5)),
             // place cone
             new Arm(0.3, 2, 0, 2),
             new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),

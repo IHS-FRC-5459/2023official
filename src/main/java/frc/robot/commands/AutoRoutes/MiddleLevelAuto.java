@@ -26,14 +26,14 @@ public class MiddleLevelAuto extends SequentialCommandGroup{
       new FullyRetract(-0.3),
       new ParallelRaceGroup(new WaitCommand(4), new Roller(0.5)),
       // go to cone
-      new DriveToDistance(189, 2),
+  //    new DriveToDistance(189, 2),
       // pick up cone
       new ParallelRaceGroup(new Arm(0.3, 1, Constants.distForArmToExToGetConeInTicks, 0)),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(0.2)),
       new FullyRetract(-0.3),
       new Arm(3, 0, 0, 0),
       // drive back
-      new ParallelRaceGroup(new DriveToDistance(-189, 0.5)),
+ //     new ParallelRaceGroup(new DriveToDistance(-189, 0.5)),
       // place cone
       new Arm(0.3, 2, 0, 2),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -41,7 +41,7 @@ public class MiddleLevelAuto extends SequentialCommandGroup{
       // active leveling
       // go there
       new ParallelRaceGroup(new FullyRetract(-0.3)),
-      new DriveToDistance(93.69,0.5),
+ //     new DriveToDistance(93.69,0.5),
       // level
       new ActiveLevel(0, 1)//IDK  what deadspace, sensitivity values should be, or really what any of these values should be. I just plugged in random numbers, tmeporarily
 
