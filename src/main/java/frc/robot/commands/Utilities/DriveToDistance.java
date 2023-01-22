@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Utilities;
 
+import javax.naming.spi.DirStateFactory;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
@@ -36,20 +38,28 @@ public class DriveToDistance extends CommandBase {
   @Override
   public void execute() {
 
-    double distLeft = goalDistance - Robot.m_robotContainer.m_DriveSub.dist;
+    double distLeft = goalDistance - Robot.m_robotContainer.m_DriveSub.getDist();
       double yawIntensity = (-Robot.m_robotContainer.m_DriveSub.ang  - expectedAngle)/100;
-     
-      if(distLeft <12)
+     double newpower = power;
+      if((Math.abs(distLeft) < 12 && Math.abs(distLeft) > 6))
       {
-        power *= Math.pow(-1.05946, distLeft);
-        if(power < 0.1)
-        {
-          power = 0.1;
-        }
+         newpower = 0.3* power *  (-Math.pow(1.05946, 12 - distLeft) + 2);
+         if(distLeft < 0)
+         {
+          newpower *= -1;
+         }
+         System.out.println(distLeft + " " +newpower);
+
+          
+        Robot.m_robotContainer.m_DriveSub.setDrive(newpower + yawIntensity , newpower - yawIntensity );
+
+      }else if(Math.abs(distLeft) >= 12){
+        Robot.m_robotContainer.m_DriveSub.setDrive(power + yawIntensity , power - yawIntensity );
+
       }
-      Robot.m_robotContainer.m_DriveSub.setDrive(power + yawIntensity , power - yawIntensity );
-      leftBias = 0;
-      rightBias = 0;
+
+      
+
 
   }
 
@@ -65,22 +75,14 @@ public class DriveToDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double distLeft = goalDistance - Robot.m_robotContainer.m_DriveSub.dist;
+    double distLeft = goalDistance - Robot.m_robotContainer.m_DriveSub.getDist();
 
 
-    if(goalDistance < 0)
+    if(Math.abs(distLeft) <= 6)
     {
-      if(distLeft >=0.5)
-      {
-        return true;
-      }
-    
-    }else{
-      if(distLeft <= 0.5)
-      {
-        return true;
-      }
+      return true; 
     }
+    
     return false;
   }
 }

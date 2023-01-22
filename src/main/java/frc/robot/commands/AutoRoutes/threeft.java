@@ -17,8 +17,8 @@ public class threeft extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new DriveToDistance(36, 0, 0.25),
-      new DriveToDistance(-36,0,  -0.25)
+    new DriveToDistance(48, 15, 0.25),
+     new DriveToDistance(-48,-15,  -0.25)
 
     );
   }
