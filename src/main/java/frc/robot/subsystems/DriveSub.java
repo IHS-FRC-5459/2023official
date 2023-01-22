@@ -11,8 +11,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -27,6 +29,7 @@ public class DriveSub extends SubsystemBase {
   //IMU unit
   // used to see roll, yaw, and pitch of the robot. Used for leveling, and truning. Basically like a gyro.
   private Pigeon2 imu;
+  private final Gyro m_gyro = new ADXRS450_Gyro();
 
   private TalonSRX left1;
   private TalonSRX left2;
@@ -94,7 +97,6 @@ right2 = new TalonSRX(3);
     neo3.set(right);
     neo4.set(right);
     */
-
     left1.set(ControlMode.PercentOutput, left);
             left2.set(ControlMode.PercentOutput, left);
             right1.set(ControlMode.PercentOutput, right);
@@ -116,13 +118,18 @@ right2 = new TalonSRX(3);
       return dist;//in inches
   }
 
-  
+  public double getDist()
+  {
+    return dist;
+  }
 
   public void zeroYaw()
   {
     imu.setYaw(0);
-    
+
   }
+
+  
 
   public void zeroEnc()
   {
@@ -142,6 +149,7 @@ right2 = new TalonSRX(3);
   public double getPitch()
   {
     double pitch = imu.getPitch();
+    
     return pitch;
   }
 

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -18,10 +20,12 @@ public final class Constants {
   }
 
       //drive base encoder information
-      public static final double driveWheelCirc = 6 * Math.PI;
+      public static final double driveWheelCirc = 0.1524 * Math.PI;//in m 
       public static final double encoderResolution = 2048; //  actually 42
       private static final double driveRatio = 1/1; // needs to be affirmed for 2nd time // Act 4.5/1
       public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * encoderResolution));
+      
+      
       public static final int distForArmToExToGetConeInTicks = 1000; // needs to be correct
 
 
@@ -31,4 +35,24 @@ public final class Constants {
       //arm to level distances in ticks 
       public final static double ticksToMid = 500; //needs to be correct
       public final static double ticksToHigh = 1000; //needs to be correct
-}
+
+      //drivtrain char
+      public static final double ksVolts = 0.22;
+    public static final double kvVoltSecondsPerMeter = 1.98;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+
+    public static final double kTrackwidthMeters = 0.6096;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static final double kPDriveVel = 8.5;
+
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+
+        // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+    
+
+
+    }
