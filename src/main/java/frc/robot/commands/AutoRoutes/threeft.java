@@ -4,9 +4,16 @@
 
 package frc.robot.commands.AutoRoutes;
 
+import java.util.HashMap;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Utilities.DriveToDistance;
-import frc.robot.commands.Utilities.TurnToAngle;
+import frc.robot.commands.ActiveLevel;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -16,10 +23,27 @@ public class threeft extends SequentialCommandGroup {
   public threeft() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
+
+
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(3, 1));
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("marker1", new ActiveLevel(0, 0));
+    FollowPathWithEvents command = new FollowPathWithEvents(
+      getPathFollowingCommand(examplePath),
+      examplePath.getMarkers(),
+      eventMap
+  );
+
+    addCommands(/* 
     new DriveToDistance(48, 15, 0.25),
      new DriveToDistance(-48,-15,  -0.25)
+*/
+command
 
     );
+  }
+
+  private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
+    return null;
   }
 }

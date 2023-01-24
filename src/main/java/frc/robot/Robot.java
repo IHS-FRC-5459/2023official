@@ -84,8 +84,6 @@ public class Robot extends TimedRobot {
     double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
     SmartDashboard.putNumber("pitch", pitch);
     SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
-    SmartDashboard.putNumber("angle", m_robotContainer.m_DriveSub.ang);
-    SmartDashboard.putNumber("distance", m_robotContainer.m_DriveSub.dist);
 
 
 

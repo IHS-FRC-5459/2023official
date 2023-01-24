@@ -12,16 +12,14 @@ import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
-import frc.robot.commands.Utilities.DriveToDistance;
 import frc.robot.commands.Utilities.FullyRetract;
-import frc.robot.commands.Utilities.TurnToAngle;
 
 /** Add your docs here. */
 public class RightLevelAuto  extends SequentialCommandGroup {
   public RightLevelAuto(){
 
     /// needs to be updated
-    addCommands(
+    addCommands(/* 
         // place cone
         new Arm(0.3, 2, 0, 3),
         new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -55,7 +53,7 @@ public class RightLevelAuto  extends SequentialCommandGroup {
 //      new DriveToDistance(36,0.5),
       // level
       new ActiveLevel(0, 1)//IKS  what deadspace, sensitivity values should be
-    );
+  */  );
   }
 
 }

@@ -12,9 +12,7 @@ import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
-import frc.robot.commands.Utilities.DriveToDistance;
 import frc.robot.commands.Utilities.FullyRetract;
-import frc.robot.commands.Utilities.TurnToAngle;
 
 /** Add your docs here. */
 public class RightAuto  extends SequentialCommandGroup {
@@ -22,6 +20,7 @@ public class RightAuto  extends SequentialCommandGroup {
 
     /// needs to be updated
     addCommands(
+      /* 
         // place cone
       new Arm(0.3, 2, 0, 3),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -45,7 +44,7 @@ public class RightAuto  extends SequentialCommandGroup {
       new ParallelRaceGroup(new Arm(0.3, 2, 0, 2)),
       new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
       new ParallelRaceGroup(new FullyRetract(-0.3))
-    );
+   */ );
   }
 
 }

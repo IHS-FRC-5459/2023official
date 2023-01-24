@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
-import frc.robot.commands.Utilities.DriveToDistance;
 import frc.robot.commands.Utilities.FullyRetract;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -31,10 +30,11 @@ public class PlaceOne extends SequentialCommandGroup {
      * - drive back 8ft // 96in
      */
     addCommands(
+      /* 
       new Arm(0.3, 2, 0, 3),
       new ParallelRaceGroup(new WaitCommand(0.5), new Claw(-0.2)),
       new FullyRetract(-0.3)//,
      // new DriveToDistance(140, 0.5)
-    );
+    */);
   }
 }

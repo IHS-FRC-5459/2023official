@@ -12,14 +12,13 @@ import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
-import frc.robot.commands.Utilities.DriveToDistance;
 import frc.robot.commands.Utilities.FullyRetract;
 
 /** Add your docs here. */
 public class MiddleAuto extends SequentialCommandGroup{
     public MiddleAuto(){
         //17
-        addCommands(
+        addCommands(/* 
             // place cone
             new Arm(0.3, 2, 0, 3),
             new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -39,6 +38,6 @@ public class MiddleAuto extends SequentialCommandGroup{
             new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
             new ParallelRaceGroup(new FullyRetract(-0.3))
             
-          );
+          */);
     }
 }

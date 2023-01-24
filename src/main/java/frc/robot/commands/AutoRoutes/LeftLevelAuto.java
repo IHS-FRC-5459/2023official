@@ -12,14 +12,13 @@ import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
-import frc.robot.commands.Utilities.DriveToDistance;
 import frc.robot.commands.Utilities.FullyRetract;
-import frc.robot.commands.Utilities.TurnToAngle;
 
 /** Add your docs here. */
 public class LeftLevelAuto  extends SequentialCommandGroup {
   public LeftLevelAuto(){
     addCommands(
+      /* 
         // placing cone
         new Arm(0.3, 2, 0, 3),
         new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
@@ -53,7 +52,7 @@ public class LeftLevelAuto  extends SequentialCommandGroup {
   //    new DriveToDistance(36,0.5),
       // level
       new ActiveLevel(0, 1)//IDK  what deadspace, sensitivity values should be, or really what any of these values should be. I just plugged in random numbers, tmeporarily
-    );
+    */);
   }
 
 }
