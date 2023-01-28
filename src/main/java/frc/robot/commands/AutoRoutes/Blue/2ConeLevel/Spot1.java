@@ -13,6 +13,7 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Utilities.PickUpGamepiece;
 import frc.robot.commands.Utilities.PlaceGamepiece;
@@ -43,16 +44,13 @@ public class Spot1 extends SequentialCommandGroup {
       eventMap
   );
 
-    addCommands(/* 
-    new DriveToDistance(48, 15, 0.25),
-     new DriveToDistance(-48,-15,  -0.25)
-*/
-command
+    addCommands(
+      command
 
     );
   }
 
   private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
-    return null;
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
   }
 }

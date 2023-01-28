@@ -4,6 +4,7 @@
 
 package frc.robot.commands.AutoRoutes;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -11,6 +12,15 @@ import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Utilities.FullyRetract;
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
+import java.io.*;
+import java.util.*;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,16 +28,23 @@ import frc.robot.commands.Utilities.FullyRetract;
 public class PlaceOneLevel extends SequentialCommandGroup {
   /** Creates a new PlaceOneLevel. */
   public PlaceOneLevel() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(/* 
-      new Arm(0.3, 2, 0, 3),
-      new ParallelRaceGroup(new WaitCommand(0.5), new Claw(-0.2)),
-      new FullyRetract(-0.3),
-   //   new DriveToDistance(140, 0.5),
-  //    new DriveToDistance(44, -0.5),
-      new ActiveLevel(2, 0.8)
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(4, 3));
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("marker1", new ActiveLevel(0, 0));
+    FollowPathWithEvents command = new FollowPathWithEvents(
+      getPathFollowingCommand(examplePath),
+      examplePath.getMarkers(),
+      eventMap
+  );
 
-  */  );
+    addCommands(
+      command
+
+    );
   }
+
+  private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
+  }
+  
 }

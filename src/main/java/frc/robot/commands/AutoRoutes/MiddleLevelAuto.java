@@ -13,37 +13,36 @@ import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
 import frc.robot.commands.Utilities.FullyRetract;
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
+import java.io.*;
+import java.util.*;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 
 /** Add your docs here. */
 public class MiddleLevelAuto extends SequentialCommandGroup{
     public MiddleLevelAuto(){
-        //17
-    addCommands(/* 
-      // place cone
-      new Arm(0.3, 2, 0, 3),
-      new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
-      new FullyRetract(-0.3),
-      new ParallelRaceGroup(new WaitCommand(4), new Roller(0.5)),
-      // go to cone
-  //    new DriveToDistance(189, 2),
-      // pick up cone
-      new ParallelRaceGroup(new Arm(0.3, 1, Constants.distForArmToExToGetConeInTicks, 0)),
-      new ParallelRaceGroup( new WaitCommand(2), new Claw(0.2)),
-      new FullyRetract(-0.3),
-      new Arm(3, 0, 0, 0),
-      // drive back
- //     new ParallelRaceGroup(new DriveToDistance(-189, 0.5)),
-      // place cone
-      new Arm(0.3, 2, 0, 2),
-      new ParallelRaceGroup( new WaitCommand(2), new Claw(-0.2)),
-      
-      // active leveling
-      // go there
-      new ParallelRaceGroup(new FullyRetract(-0.3)),
- //     new DriveToDistance(93.69,0.5),
-      // level
-      new ActiveLevel(0, 1)//IDK  what deadspace, sensitivity values should be, or really what any of these values should be. I just plugged in random numbers, tmeporarily
+        PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(4, 3));
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("marker1", new ActiveLevel(0, 0));
+    FollowPathWithEvents command = new FollowPathWithEvents(
+      getPathFollowingCommand(examplePath),
+      examplePath.getMarkers(),
+      eventMap
+  );
 
-   */ );
-    }
+    addCommands(
+      command
+
+    );
+  }
+
+  private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
+  }
+    
 }
