@@ -13,7 +13,10 @@ import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
 import frc.robot.commands.Utilities.FullyRetract;
-
+/*
+ * add markers to routes
+ * 
+ */
 /** Add your docs here. */
 public class LeftAuto extends SequentialCommandGroup {
   public LeftAuto(){

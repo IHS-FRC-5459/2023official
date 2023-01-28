@@ -44,6 +44,7 @@ public class DriveSub extends SubsystemBase {
     new WPI_TalonSRX(4)
   );
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  public double ang;
   private final Encoder m_leftEncoder =
   new Encoder(5,6,true,EncodingType.k4X);
   private final Encoder m_rightEncoder =
@@ -136,6 +137,7 @@ public class DriveSub extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    ang = getPitch();
     m_odometry.update(
         m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }

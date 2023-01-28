@@ -15,7 +15,7 @@ public class ArmSub extends SubsystemBase {
 
   //create falcon 500
   //WPI_TalonFX pivotMotor = new WPI_TalonFX(6);
- // WPI_TalonFX extendMotor = new WPI_TalonFX(7);
+ //WPI_TalonFX extendMotor = new WPI_TalonFX(7);
  // DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
@@ -39,9 +39,17 @@ public class ArmSub extends SubsystemBase {
   }
 // gets encoder value of arm
   public double getTicks()
-  {return 0;
-  //  return extendMotor.getSelectedSensorPosition();
+  {
+    return 0;  //return extendMotor.getSelectedSensorPosition();
   }
+  public void resetEncoder(){
+    //extendMotor.setSelectedSensorPosition(0);
+    
+  }
+public double getPivotTicks(){
+  return 0;
+  //return pivotMotor.getSelectedSensorPosition();
+}
 // sees if the arm is fully reatracted
   public boolean getLimitSwitch()
   { return false;
