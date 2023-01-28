@@ -13,6 +13,7 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Utilities.PickUpGamepiece;
 import frc.robot.commands.Utilities.PlaceGamepiece;
@@ -27,15 +28,14 @@ public class Spot1 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeGo/Spot1", new PathConstraints(3, 1));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Red/2ConeLevel/Spot1", new PathConstraints(3, 1));
     HashMap<String, Command> eventMap = new HashMap<>();
 
     //events
-    eventMap.put("PlaceCone1", new PlaceGamepiece(0.5, 0.2, 3));
-    eventMap.put("PickUpCone2", new PickUpGamepiece(0.7, 0.2, 0.3));
-    eventMap.put("PlaceCone2", new PlaceGamepiece(0.5, 0.2, 3));
-    eventMap.put("PickUpFinalCone", new PickUpGamepiece(0.7, 0.2, 0.3));
-    
+    eventMap.put("Start/place cone 1", new PlaceGamepiece(0.5, 0.2, 3));
+    eventMap.put("Pick up cone 2", new PickUpGamepiece(0.7, 0.2, 0.3));
+    eventMap.put("Place cone 2", new PlaceGamepiece(0.5, 0.2, 3));
+    eventMap.put("Level", new ActiveLevel(0, 1));
 
 
     FollowPathWithEvents command = new FollowPathWithEvents(
@@ -44,16 +44,13 @@ public class Spot1 extends SequentialCommandGroup {
       eventMap
   );
 
-    addCommands(/* 
-    new DriveToDistance(48, 15, 0.25),
-     new DriveToDistance(-48,-15,  -0.25)
-*/
-command
+    addCommands(
+      command
 
     );
   }
 
   private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
-    return null;
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
   }
 }
