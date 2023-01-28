@@ -13,6 +13,7 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.ActiveLevel;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -25,7 +26,7 @@ public class threeft extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(3, 1));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(4, 3));
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put("marker1", new ActiveLevel(0, 0));
     FollowPathWithEvents command = new FollowPathWithEvents(
@@ -34,16 +35,13 @@ public class threeft extends SequentialCommandGroup {
       eventMap
   );
 
-    addCommands(/* 
-    new DriveToDistance(48, 15, 0.25),
-     new DriveToDistance(-48,-15,  -0.25)
-*/
-command
+    addCommands(
+      command
 
     );
   }
 
   private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
-    return null;
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
   }
 }

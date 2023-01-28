@@ -45,9 +45,9 @@ public class DriveSub extends SubsystemBase {
   );
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
   private final Encoder m_leftEncoder =
-  new Encoder(5,6,true,EncodingType.k4X);
+  new Encoder(5,6,true,EncodingType.k4X); // 5 6
   private final Encoder m_rightEncoder =
-  new Encoder(2,3,false,EncodingType.k4X);
+  new Encoder(2,3,false,EncodingType.k4X); // 2 3
 
   private final Gyro m_gyro = new ADXRS450_Gyro();
   private Pigeon2 m_imu = new Pigeon2(5);
@@ -58,7 +58,7 @@ public class DriveSub extends SubsystemBase {
     m_rightMotors.setInverted(true);
     m_leftEncoder.setDistancePerPulse(Constants.distancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.distancePerPulse);
-
+    
     resetEncoders();
     m_odometry =
         new DifferentialDriveOdometry(
