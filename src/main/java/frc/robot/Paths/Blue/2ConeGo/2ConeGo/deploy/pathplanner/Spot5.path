@@ -16,7 +16,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PlaceCone1"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -66,7 +68,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PickUpCone2"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -99,16 +103,16 @@
     },
     {
       "anchorPoint": {
-        "x": 1.9581689519673589,
-        "y": 1.5994430088622649
+        "x": 1.966875728623252,
+        "y": 1.5644260348349754
       },
       "prevControl": {
-        "x": 2.253304269078848,
-        "y": 1.5994430088622649
+        "x": 2.2620110457347407,
+        "y": 1.5644260348349754
       },
       "nextControl": {
-        "x": 2.253304269078848,
-        "y": 1.5994430088622649
+        "x": 2.2620110457347407,
+        "y": 1.5644260348349754
       },
       "holonomicAngle": 0,
       "isReversal": true,
@@ -116,7 +120,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PlaceCone2"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -166,7 +172,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PickUpFinalCone"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -188,7 +196,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Edge"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0

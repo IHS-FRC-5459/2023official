@@ -16,7 +16,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PlaceCone1"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -41,7 +43,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PickUpCone2"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -49,16 +53,16 @@
     },
     {
       "anchorPoint": {
-        "x": 1.948648457866988,
-        "y": 4.9220954498916125
+        "x": 1.9554565604857705,
+        "y": 4.8874039628421135
       },
       "prevControl": {
-        "x": 2.5681393348885333,
-        "y": 4.9220954498916125
+        "x": 2.5749474375073156,
+        "y": 4.8874039628421135
       },
       "nextControl": {
-        "x": 2.5681393348885333,
-        "y": 4.9220954498916125
+        "x": 2.5749474375073156,
+        "y": 4.8874039628421135
       },
       "holonomicAngle": 0,
       "isReversal": true,
@@ -66,7 +70,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PlaceCone2"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -74,16 +80,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.7184160021526695,
-        "y": 4.693603591482718
+        "x": 6.717249673815586,
+        "y": 4.647601431955001
       },
       "prevControl": {
-        "x": 5.4521902868033765,
-        "y": 4.741206061984571
+        "x": 5.451023958466293,
+        "y": 4.695203902456854
       },
       "nextControl": {
-        "x": 7.066807219258019,
-        "y": 4.680506177305825
+        "x": 7.065640890920935,
+        "y": 4.6345040177781085
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -91,7 +97,9 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PickUpFinalCone"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -113,7 +121,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Edge"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
