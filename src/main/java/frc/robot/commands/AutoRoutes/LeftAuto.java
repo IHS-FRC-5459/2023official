@@ -35,7 +35,7 @@ public class LeftAuto extends SequentialCommandGroup {
   }
 
   private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
-    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
+  return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
   }
     
 

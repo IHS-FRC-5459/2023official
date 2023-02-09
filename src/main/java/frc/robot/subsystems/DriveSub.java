@@ -4,11 +4,18 @@
 
 package frc.robot.subsystems;
 
+import java.util.concurrent.CancellationException;
+
+import org.ejml.dense.block.decomposition.hessenberg.TridiagonalDecompositionHouseholder_MT_FDRB;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPRamseteCommand;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -33,82 +40,88 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 public class DriveSub extends SubsystemBase {
-  private final MotorControllerGroup m_leftMotors =
-  new MotorControllerGroup(
-    new WPI_TalonSRX(0),
-    new WPI_TalonSRX(1)
-  );
-  private final MotorControllerGroup m_rightMotors =
-  new MotorControllerGroup(
-    new WPI_TalonSRX(3),
-    new WPI_TalonSRX(4)
-  );
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
-  private final Encoder m_leftEncoder =
-  new Encoder(5,6,true,EncodingType.k4X); // 5 6
-  private final Encoder m_rightEncoder =
-  new Encoder(2,3,false,EncodingType.k4X); // 2 3
+
+  CANSparkMax bottomLeft = new CANSparkMax(2, MotorType.kBrushless);
+  CANSparkMax topLeft = new CANSparkMax(3, MotorType.kBrushless);
+  CANSparkMax bottomRight =new CANSparkMax(4, MotorType.kBrushless);
+  CANSparkMax topRight = new CANSparkMax(5, MotorType.kBrushless);
+
+  
+  RelativeEncoder topLeftEncoder;
+  RelativeEncoder topRightEncoder;
+  private final DifferentialDrive m_drive = new DifferentialDrive(bottomLeft, bottomRight);
+
+
+
 
   private final Gyro m_gyro = new ADXRS450_Gyro();
-  private Pigeon2 m_imu = new Pigeon2(5);
+  //private Pigeon2 m_imu = new Pigeon2(6);
   private final DifferentialDriveOdometry m_odometry;
 
   /** Creates a new DriveSub. */
   public DriveSub() {
-    m_rightMotors.setInverted(true);
-    m_leftEncoder.setDistancePerPulse(Constants.distancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.distancePerPulse);
+    bottomLeft.follow(topLeft);
+    bottomRight.follow(topRight);
+    bottomRight.setInverted(true);
+    topRight.setInverted(true);
+    topLeftEncoder = topLeft.getEncoder();
+    topRightEncoder = topRight.getEncoder();
+    topLeftEncoder.setPositionConversionFactor(Constants.distancePerPulse);
+    topRightEncoder.setPositionConversionFactor(Constants.distancePerPulse);
+    topLeftEncoder.setVelocityConversionFactor(Constants.distancePerPulse);
+    topRightEncoder.setVelocityConversionFactor(Constants.distancePerPulse);
+
     
     resetEncoders();
     m_odometry =
         new DifferentialDriveOdometry(
-            m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+            m_gyro.getRotation2d(), topLeftEncoder.getPosition(), topRightEncoder.getPosition());
   }
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
   
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    return new DifferentialDriveWheelSpeeds(topLeftEncoder.getVelocity(), topRightEncoder.getVelocity());
   }
 
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
     m_odometry.resetPosition(
-        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance(), pose);
+        m_gyro.getRotation2d(), topLeftEncoder.getPosition(), topRightEncoder.getPosition(), pose);
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    m_leftMotors.setVoltage(leftVolts);
-    m_rightMotors.setVoltage(rightVolts);
-    m_drive.feed();
+    topLeft.setVoltage(leftVolts);
+    topRight.setVoltage(rightVolts);
+    //m_drive.feed();
   }
 
   public void setDrive(double left, double right)
   {
-    m_leftMotors.set(left);
-    m_rightMotors.set(right);
+    topLeft.set(left);
+    topRight.set(right);
 
 
     
   }
 
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    topLeftEncoder.setPosition(0);
+    topRightEncoder.setPosition(0);
   }
 
   public double getAverageEncoderDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+    return (topLeftEncoder.getPosition() + topRightEncoder.getPosition()) / 2.0;
   }
 
-  public Encoder getLeftEncoder() {
-    return m_leftEncoder;
+  public RelativeEncoder getLeftEncoder() {
+    return topLeftEncoder;
   }
 
 
-  public Encoder getRightEncoder() {
-    return m_rightEncoder;
+  public RelativeEncoder getRightEncoder() {
+    return topRightEncoder;
   }
 
   public void setMaxOutput(double maxOutput) {
@@ -129,7 +142,8 @@ public class DriveSub extends SubsystemBase {
 
   public double getPitch()
   {
-    return m_imu.getPitch();
+    return 0;
+    //return m_imu.getPitch();
   }
 
 
@@ -137,10 +151,10 @@ public class DriveSub extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(
-        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+        m_gyro.getRotation2d(), topLeftEncoder.getPosition(), topRightEncoder.getPosition());
   }
 
-  public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath) {
+  public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath) throws NullPointerException{
     
     return new SequentialCommandGroup(
      new InstantCommand(() -> {

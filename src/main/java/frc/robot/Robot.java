@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.MjpegServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,7 +38,6 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
   private Command driveCommand;
   private SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
     //m_robotContainer = RobotContainer.getInstance();
     // sets u snedable chooser
     driveCommand = new Drive();
+    /* 
     autoChooser.addOption("Left Auto", new LeftAuto());
     autoChooser.addOption("Left Level", new LeftLevelAuto());
     autoChooser.addOption("Middle Auto", new MiddleAuto());
@@ -58,12 +61,17 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("Right Level Auto", new RightLevelAuto());
     autoChooser.addOption("3 ft", new threeft());
     SmartDashboard.putData("Auto Mode", autoChooser);
-
+*/
     //camera
-    CameraServer.startAutomaticCapture();
-
+    
+    UsbCamera c = CameraServer.startAutomaticCapture();
+    MjpegServer server = new MjpegServer("cam server", 5459);
+    
+      server.setSource(c);
+      server.setFPS(24);
+      server.setResolution(640,480);
+    
     //camera
-    CameraServer.startAutomaticCapture();
 
   }
 
@@ -119,11 +127,11 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
-      m_robotContainer.m_DriveSub.setDrive(0, 0);;
+      m_robotContainer.m_DriveSub.setDrive(0, 0);
 
     }
     driveCommand.schedule();
-
+    m_robotContainer.getBlinkin().set(0);
 
   }
 
@@ -152,4 +160,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+  
 }

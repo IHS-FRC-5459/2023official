@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.RollerSub;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -34,7 +35,8 @@ public class RobotContainer {
 
 
   //joysticks
-  
+  Spark blinkin = new Spark(5);
+
   private Joystick rightStick = null;
   private Joystick leftStick = null;
   private CommandXboxController xboxOne = new CommandXboxController(2);
@@ -122,4 +124,9 @@ public Joystick getrightStick() {
 public CommandXboxController getxbox() {
   return xboxOne;
 }
+
+public Spark getBlinkin()
+  {
+    return blinkin;
+  }
 }

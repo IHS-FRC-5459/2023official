@@ -22,7 +22,7 @@ public final class Constants {
       //drive base encoder information
       public static final double driveWheelCirc = 0.1524 * Math.PI;//in m 
       public static final double encoderResolution = 2048; //  actually 42
-      private static final double driveRatio = 1/1; // needs to be affirmed for 2nd time // Act 4.5/1
+      private static final double driveRatio = 9.643/1; // needs to be affirmed for 2nd time // Act 9.643/1
       public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * encoderResolution));
       
       
