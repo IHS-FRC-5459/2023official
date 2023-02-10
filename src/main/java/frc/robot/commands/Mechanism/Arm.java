@@ -73,8 +73,12 @@ public class Arm extends CommandBase {
         if(level==2)
         {
           extendToTicks(Constants.ticksToMid, power);  
-        } else {
+        } else if(level == 3) {
           extendToTicks(Constants.ticksToHigh, power);  
+        } else if(level == 4){
+          extendToTicks(Constants.ticksToCone, power);
+        } else{
+          System.out.println("ONLY INPUT 1-4 NUMBERS!!!!!!!!!!!!!!!!!!!!");
         }
         break;
 
