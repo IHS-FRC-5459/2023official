@@ -35,7 +35,7 @@ public final class Constants {
       //arm to level distances in ticks 
       public final static double ticksToMid = 500; //needs to be correct
       public final static double ticksToHigh = 1000; //needs to be correct
-
+      public final static double ticksToCone = 750; // needs to be correct
       //drivtrain char
       public static final double ksVolts = 0.22;
     public static final double kvVoltSecondsPerMeter = 1.98;

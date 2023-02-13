@@ -24,7 +24,8 @@ import frc.robot.commands.AutoRoutes.PlaceOne;
 import frc.robot.commands.AutoRoutes.PlaceOneLevel;
 import frc.robot.commands.AutoRoutes.RightAuto;
 import frc.robot.commands.AutoRoutes.RightLevelAuto;
-import frc.robot.commands.AutoRoutes.threeft;
+//import frc.robot.commands.AutoRoutes.threeft;
+import frc.robot.commands.AutoRoutes.threeftog;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("3 ft", new threeft());
     SmartDashboard.putData("Auto Mode", autoChooser);
 */
+autoChooser.addOption("threeftog", new threeftog());
+SmartDashboard.putData("Auto Mode", autoChooser);
     //camera
     
     UsbCamera c = CameraServer.startAutomaticCapture();
