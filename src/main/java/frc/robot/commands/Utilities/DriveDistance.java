@@ -7,60 +7,57 @@ package frc.robot.commands.Utilities;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class Driveft extends CommandBase {
-  /** Creates a new Drive3ft. */
-  private double power;
-  private double goalDist, currentDist;
-  private boolean isPos = true;
-  public Driveft(double pwr, double distance) {
-    power = pwr;
-    goalDist = distance;
-    if(power > 0){isPos = true;}
-    else if(power < 0){isPos = false;}
+public class DriveDistance extends CommandBase {
+  double distance, pwr;
+  /** Creates a new DriveDistance. */
+  public DriveDistance(double pwr, double inches) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.pwr = pwr;
+    this.distance = inches * 0.0254;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.m_robotContainer.m_DriveSub.setDrive(0, 0);
+    Robot.m_robotContainer.m_DriveSub.setDrive(0,0);
     Robot.m_robotContainer.m_DriveSub.resetEncoders();
+    Robot.m_robotContainer.m_DriveSub.resetYaw();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentDist = Robot.m_robotContainer.m_DriveSub.getAverageEncoderDistance();
-    if(isPos){
-      if(currentDist < goalDist){
-        Robot.m_robotContainer.m_DriveSub.setDrive(power, power);
-      }
-    } else{
-      if(currentDist > goalDist){
-        Robot.m_robotContainer.m_DriveSub.setDrive(-power, -power);
-      }
+
+    double yawIntensity = -1 * (Robot.m_robotContainer.m_DriveSub.getYaw())/100;
+    if(pwr >0){
+        Robot.m_robotContainer.m_DriveSub.setDrive(pwr + yawIntensity, pwr - yawIntensity);
+    }else{
+      Robot.m_robotContainer.m_DriveSub.setDrive(pwr - yawIntensity, pwr - yawIntensity);
+
     }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_robotContainer.m_DriveSub.setDrive(0, 0);
+    Robot.m_robotContainer.m_DriveSub.setDrive(0,0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(isPos){
-      if(currentDist >= goalDist){
+    double distanceTravelled = Robot.m_robotContainer.m_DriveSub.getAverageEncoderDistance();
+    if(pwr>0)
+    {
+      if(distanceTravelled >= distance){
         return true;
       }
-    } else{
-      if(currentDist <= goalDist){
+    }else{
+      if(distanceTravelled <= -distance){
         return true;
       }
     }
-    
     return false;
   }
 }

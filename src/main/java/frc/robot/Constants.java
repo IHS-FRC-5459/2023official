@@ -21,9 +21,9 @@ public final class Constants {
 
       //drive base encoder information
       public static final double driveWheelCirc = 0.1524 * Math.PI;//in m 
-      public static final double encoderResolution = 2048; //  actually 42
+      public static final double encoderResolution = 1; //  actually 42
       private static final double driveRatio = 9.643/1; // needs to be affirmed for 2nd time // Act 9.643/1
-      public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * encoderResolution));
+      public static final double distancePerPulse = driveWheelCirc * (1/(driveRatio * /*encoderResolution*/1));
       
       
       public static final int distForArmToExToGetConeInTicks = 1000; // needs to be correct

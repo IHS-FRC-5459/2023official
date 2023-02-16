@@ -108,6 +108,16 @@ public class DriveSub extends SubsystemBase {
     
   }
 
+  public double getYaw()
+  {
+    return m_gyro.getAngle();
+  }
+
+  public void resetYaw(){
+    m_gyro.reset();
+  }
+
+
   public void resetEncoders() {
     topLeftEncoder.setPosition(0);
     topRightEncoder.setPosition(0);
@@ -115,6 +125,14 @@ public class DriveSub extends SubsystemBase {
 
   public double getAverageEncoderDistance() {
     return (topLeftEncoder.getPosition() + topRightEncoder.getPosition()) / 2.0;
+  }
+
+  public double getLeftEncoderDistance(){
+    return topLeftEncoder.getPosition();
+  }
+
+  public double getRightEncoderDistance(){
+    return topLeftEncoder.getPosition();
   }
 
   public RelativeEncoder getLeftEncoder() {

@@ -63,8 +63,7 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("3 ft", new threeft());
     SmartDashboard.putData("Auto Mode", autoChooser);
 */
-autoChooser.addOption("threeftog", new threeftog());
-SmartDashboard.putData("Auto Mode", autoChooser);
+//SmartDashboard.putData("Auto Mode", autoChooser);
     //camera
     
     UsbCamera c = CameraServer.startAutomaticCapture();
@@ -92,9 +91,12 @@ SmartDashboard.putData("Auto Mode", autoChooser);
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
-    SmartDashboard.putNumber("pitch", pitch);
-    SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+    //double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
+    //SmartDashboard.putNumber("pitch", pitch);
+    //SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+    SmartDashboard.putNumber("enc distance", m_robotContainer.m_DriveSub.getAverageEncoderDistance());
+    SmartDashboard.putNumber("left enc distance", m_robotContainer.m_DriveSub.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right enc distance", m_robotContainer.m_DriveSub.getRightEncoderDistance());
 
 
 
@@ -110,8 +112,8 @@ SmartDashboard.putData("Auto Mode", autoChooser);
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = autoChooser.getSelected();
-
+    //m_autonomousCommand = autoChooser.getSelected();
+ m_autonomousCommand = new threeftog();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

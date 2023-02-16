@@ -5,13 +5,18 @@
 package frc.robot.commands.AutoRoutes;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Utilities.Driveft;
+import frc.robot.commands.Utilities.DriveDistance;
 
 /** Add your docs here. */
 public class threeftog extends SequentialCommandGroup{
     public threeftog(){
         addCommands(
-            new Driveft(0.2, 10)
+            // 0.85 ~ 3ft
+            // 1.735 ~ 6ft
+            // 188 = 7.833333ft, 2.2651388889
+            new DriveDistance(0.2, 36),
+            new DriveDistance(-0.2, 36)
+
     );
 }
 }
