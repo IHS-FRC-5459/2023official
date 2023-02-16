@@ -32,7 +32,7 @@ public class DriveDistance extends CommandBase {
     if(pwr >0){
         Robot.m_robotContainer.m_DriveSub.setDrive(pwr + yawIntensity, pwr - yawIntensity);
     }else{
-      Robot.m_robotContainer.m_DriveSub.setDrive(pwr - yawIntensity, pwr - yawIntensity);
+      Robot.m_robotContainer.m_DriveSub.setDrive(pwr + yawIntensity, pwr - yawIntensity);
 
     }
 
