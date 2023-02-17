@@ -12,13 +12,14 @@ import frc.robot.commands.Mechanism.Claw;
 
 public class PlaceGamepiece extends CommandBase {
   /** Creates a new PlaceGamepiece. */
-  private double aP, cP;
+  private double aP, cP, pP;
   private int level;
-  public PlaceGamepiece(double aP, double cP, int level) {
+  public PlaceGamepiece(double aP, double cP, double pP, int level) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.level = level;
     this.aP = aP;
     this.cP = cP;
+    this.pP = pP;
   }
 
   // Called when the command is initially scheduled.
@@ -27,17 +28,19 @@ public class PlaceGamepiece extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute(){}
   public SequentialCommandGroup getPickupPiece(){
     return new SequentialCommandGroup(
       new Arm(aP, 2, 0, level),
-      new WaitCommand(0.7),
+      new WaitCommand(0.4),
       new Claw(-cP),
       new WaitCommand(0.1),
       new Claw(-cP),
-      new FullyRetract(1.5 * aP)
+      new FullyRetract(1.5 * aP),
+      new Arm(pP, 0, 0, 0)
     );
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
