@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -14,14 +15,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSub extends SubsystemBase {
 
   //create falcon 500
-  //WPI_TalonFX pivotMotor = new WPI_TalonFX(6);
- //WPI_TalonFX extendMotor = new WPI_TalonFX(7);
+WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
+WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
+
+ //WPI_TalonFX extendMotor = new WPI_TalonFX(11);
  // DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
   public ArmSub() {
+    pivotMotor.set(TalonFXControlMode.PercentOutput, 0);
+    pivotMotor2.set(TalonFXControlMode.PercentOutput, 0);
 
-   // pivotMotor.setNeutralMode(NeutralMode.Brake);
+    pivotMotor.setNeutralMode(NeutralMode.Brake);
+   pivotMotor2.setNeutralMode(NeutralMode.Brake);
+   //pivotMotor.setInverted(true);
+
     //extendMotor.setNeutralMode(NeutralMode.Brake);
 
 
@@ -30,7 +38,9 @@ public class ArmSub extends SubsystemBase {
   // sets pivot motros to  a speed
   public void setPivot(double pwr)
   {
-   // pivotMotor.set(TalonFXControlMode.PercentOutput, pwr);
+   pivotMotor.set(TalonFXControlMode.PercentOutput, pwr);
+   pivotMotor2.set(TalonFXControlMode.PercentOutput, -pwr);
+
   }
 // sets arm to a speed
   public void setExtend(double pwr)

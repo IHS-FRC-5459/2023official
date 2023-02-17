@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
+import frc.robot.commands.Utilities.MovePivot;
 import frc.robot.subsystems.ArmSub;
 import frc.robot.subsystems.ClawSub;
 import frc.robot.subsystems.DriveSub;
@@ -96,6 +97,10 @@ public class RobotContainer {
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
       xboxOne.b().whileTrue(new ActiveLevel(0, 1.5));    
+      xboxOne.y().whileTrue(new MovePivot(0.25));
+      xboxOne.x().whileTrue(new MovePivot(-0.25));
+
+
 
     
   }

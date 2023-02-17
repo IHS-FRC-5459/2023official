@@ -17,7 +17,7 @@ public class chargestation extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new DriveDistance(0.2, 150),
-            new DriveDistance(-0.2, 24)
+            new DriveDistance(-0.2, 54)
     );
   }
 }
