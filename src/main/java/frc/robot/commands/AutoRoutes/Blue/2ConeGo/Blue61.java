@@ -20,14 +20,14 @@ import frc.robot.commands.Utilities.PlaceGamepiece;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Spot5 extends SequentialCommandGroup {
+public class Blue61 extends SequentialCommandGroup {
   /** Creates a new threeft. */
-  public Spot5() {
+  public Blue61() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeGo/Spot5", new PathConstraints(3, 1));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeGo/Spot6", new PathConstraints(3, 1));
     HashMap<String, Command> eventMap = new HashMap<>();
 
     //events

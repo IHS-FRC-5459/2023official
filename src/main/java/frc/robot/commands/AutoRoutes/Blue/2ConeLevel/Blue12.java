@@ -13,6 +13,7 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Utilities.PickUpGamepiece;
 import frc.robot.commands.Utilities.PlaceGamepiece;
@@ -20,14 +21,14 @@ import frc.robot.commands.Utilities.PlaceGamepiece;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Spot3 extends SequentialCommandGroup {
+public class Blue12 extends SequentialCommandGroup {
   /** Creates a new threeft. */
-  public Spot3() {
+  public Blue12() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeLevel/Spot3", new PathConstraints(3, 1));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeLevel/Spot1", new PathConstraints(3, 1));
     HashMap<String, Command> eventMap = new HashMap<>();
 
     //events
@@ -43,16 +44,13 @@ public class Spot3 extends SequentialCommandGroup {
       eventMap
   );
 
-    addCommands(/* 
-    new DriveToDistance(48, 15, 0.25),
-     new DriveToDistance(-48,-15,  -0.25)
-*/
-command
+    addCommands(
+      command
 
     );
   }
 
   private Command getPathFollowingCommand(PathPlannerTrajectory examplePath) {
-    return null;
+    return Robot.m_robotContainer.m_DriveSub.followTrajectoryCommand(examplePath, true);
   }
 }

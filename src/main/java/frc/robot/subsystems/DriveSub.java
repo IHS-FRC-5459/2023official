@@ -58,6 +58,8 @@ public class DriveSub extends SubsystemBase {
   //private Pigeon2 m_imu = new Pigeon2(6);
   private final DifferentialDriveOdometry m_odometry;
 
+
+  public double ang;
   /** Creates a new DriveSub. */
   public DriveSub() {
     bottomLeft.follow(topLeft);
@@ -94,7 +96,7 @@ public class DriveSub extends SubsystemBase {
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     topLeft.setVoltage(leftVolts);
     topRight.setVoltage(rightVolts);
-    //m_drive.feed();
+    m_drive.feed();
   }
 
   public void setDrive(double left, double right)
@@ -106,6 +108,16 @@ public class DriveSub extends SubsystemBase {
     
   }
 
+  public double getYaw()
+  {
+    return m_gyro.getAngle();
+  }
+
+  public void resetYaw(){
+    m_gyro.reset();
+  }
+
+
   public void resetEncoders() {
     topLeftEncoder.setPosition(0);
     topRightEncoder.setPosition(0);
@@ -113,6 +125,14 @@ public class DriveSub extends SubsystemBase {
 
   public double getAverageEncoderDistance() {
     return (topLeftEncoder.getPosition() + topRightEncoder.getPosition()) / 2.0;
+  }
+
+  public double getLeftEncoderDistance(){
+    return topLeftEncoder.getPosition();
+  }
+
+  public double getRightEncoderDistance(){
+    return topLeftEncoder.getPosition();
   }
 
   public RelativeEncoder getLeftEncoder() {

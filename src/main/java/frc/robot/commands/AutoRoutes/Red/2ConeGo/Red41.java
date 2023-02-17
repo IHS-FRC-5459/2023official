@@ -20,21 +20,22 @@ import frc.robot.commands.Utilities.PlaceGamepiece;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Spot2 extends SequentialCommandGroup {
+public class Red41 extends SequentialCommandGroup {
   /** Creates a new threeft. */
-  public Spot2() {
+  public Red41() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Blue/2ConeLevel/Spot2", new PathConstraints(3, 1));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("/Paths/Red/2ConeGo/Spot4", new PathConstraints(3, 1));
     HashMap<String, Command> eventMap = new HashMap<>();
 
     //events
-    eventMap.put("Start/place cone 1", new PlaceGamepiece(0.5, 0.2, 3));
+    eventMap.put("Start/ place cone1", new PlaceGamepiece(0.5, 0.2, 3));
     eventMap.put("Pick up 2nd cone", new PickUpGamepiece(0.7, 0.2, 0.3));
     eventMap.put("Place cone 2", new PlaceGamepiece(0.5, 0.2, 3));
-    eventMap.put("Level", new ActiveLevel(0, 1));
+    eventMap.put("Pick up last cone", new PickUpGamepiece(0.7, 0.2, 0.3));
+    
 
 
     FollowPathWithEvents command = new FollowPathWithEvents(

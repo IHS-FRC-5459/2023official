@@ -24,7 +24,10 @@ import frc.robot.commands.AutoRoutes.PlaceOne;
 import frc.robot.commands.AutoRoutes.PlaceOneLevel;
 import frc.robot.commands.AutoRoutes.RightAuto;
 import frc.robot.commands.AutoRoutes.RightLevelAuto;
-import frc.robot.commands.AutoRoutes.threeft;
+import frc.robot.commands.AutoRoutes.chargestation;
+import frc.robot.commands.AutoRoutes.forwardOnly;
+//import frc.robot.commands.AutoRoutes.threeft;
+import frc.robot.commands.AutoRoutes.threeftog;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -50,6 +53,9 @@ public class Robot extends TimedRobot {
     //m_robotContainer = RobotContainer.getInstance();
     // sets u snedable chooser
     driveCommand = new Drive();
+    autoChooser.addOption("basic auto", new forwardOnly());
+    autoChooser.addOption("chargestation auto", new chargestation());
+
     /* 
     autoChooser.addOption("Left Auto", new LeftAuto());
     autoChooser.addOption("Left Level", new LeftLevelAuto());
@@ -62,7 +68,10 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("3 ft", new threeft());
     SmartDashboard.putData("Auto Mode", autoChooser);
 */
+//SmartDashboard.putData("Auto Mode", autoChooser);
     //camera
+    SmartDashboard.putData("Auto Mode", autoChooser);
+
     
     UsbCamera c = CameraServer.startAutomaticCapture();
     MjpegServer server = new MjpegServer("cam server", 5459);
@@ -89,9 +98,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
-    SmartDashboard.putNumber("pitch", pitch);
-    SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+    //double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
+    //SmartDashboard.putNumber("pitch", pitch);
+    //SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
+    SmartDashboard.putNumber("enc distance", m_robotContainer.m_DriveSub.getAverageEncoderDistance());
+    SmartDashboard.putNumber("left enc distance", m_robotContainer.m_DriveSub.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right enc distance", m_robotContainer.m_DriveSub.getRightEncoderDistance());
 
 
 
@@ -108,7 +120,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = autoChooser.getSelected();
-
+ //m_autonomousCommand = new threeftog();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
