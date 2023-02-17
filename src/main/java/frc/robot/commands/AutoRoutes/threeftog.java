@@ -11,11 +11,9 @@ import frc.robot.commands.Utilities.DriveDistance;
 public class threeftog extends SequentialCommandGroup{
     public threeftog(){
         addCommands(
-            // 0.85 ~ 3ft
-            // 1.735 ~ 6ft
-            // 188 = 7.833333ft, 2.2651388889
-            new DriveDistance(0.2, 36),
-            new DriveDistance(-0.2, 36)
+            
+            new DriveDistance(0.2, 150),
+            new DriveDistance(-0.2, 150)
 
     );
 }

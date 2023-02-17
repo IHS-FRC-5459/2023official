@@ -24,6 +24,8 @@ import frc.robot.commands.AutoRoutes.PlaceOne;
 import frc.robot.commands.AutoRoutes.PlaceOneLevel;
 import frc.robot.commands.AutoRoutes.RightAuto;
 import frc.robot.commands.AutoRoutes.RightLevelAuto;
+import frc.robot.commands.AutoRoutes.chargestation;
+import frc.robot.commands.AutoRoutes.forwardOnly;
 //import frc.robot.commands.AutoRoutes.threeft;
 import frc.robot.commands.AutoRoutes.threeftog;
 
@@ -51,6 +53,9 @@ public class Robot extends TimedRobot {
     //m_robotContainer = RobotContainer.getInstance();
     // sets u snedable chooser
     driveCommand = new Drive();
+    autoChooser.addOption("basic auto", new forwardOnly());
+    autoChooser.addOption("chargestation auto", new chargestation());
+
     /* 
     autoChooser.addOption("Left Auto", new LeftAuto());
     autoChooser.addOption("Left Level", new LeftLevelAuto());
@@ -65,6 +70,8 @@ public class Robot extends TimedRobot {
 */
 //SmartDashboard.putData("Auto Mode", autoChooser);
     //camera
+    SmartDashboard.putData("Auto Mode", autoChooser);
+
     
     UsbCamera c = CameraServer.startAutomaticCapture();
     MjpegServer server = new MjpegServer("cam server", 5459);
@@ -112,8 +119,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    //m_autonomousCommand = autoChooser.getSelected();
- m_autonomousCommand = new threeftog();
+    m_autonomousCommand = autoChooser.getSelected();
+ //m_autonomousCommand = new threeftog();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
