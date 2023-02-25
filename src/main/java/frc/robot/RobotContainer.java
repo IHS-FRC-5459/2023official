@@ -7,15 +7,24 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
+import frc.robot.commands.Utilities.DriveStraight;
+import frc.robot.commands.Utilities.MoveClaw;
+import frc.robot.commands.Utilities.MoveExtend;
+import frc.robot.commands.Utilities.MoveIntake;
 import frc.robot.commands.Utilities.MovePivot;
+import frc.robot.commands.Utilities.RotateLED;
+import frc.robot.commands.Utilities.SlowSwitch;
+import frc.robot.commands.Utilities.SwitchRobotDirection;
 import frc.robot.subsystems.ArmSub;
 import frc.robot.subsystems.ClawSub;
 import frc.robot.subsystems.DriveSub;
+import frc.robot.subsystems.LEDSub;
 import frc.robot.subsystems.RollerSub;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,16 +39,16 @@ public class RobotContainer {
  // public static RobotContainer m_robotContainer = new RobotContainer();
   // The robot's subsystems and commands are defined here...
   //public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public final ClawSub m_ClawSub = new ClawSub();
-  public final ArmSub m_ArmSub = new ArmSub();
-  public final DriveSub m_DriveSub = new DriveSub();
-  public final RollerSub m_RollerSub = new RollerSub();
+  public  ClawSub m_ClawSub = new ClawSub();
+  public  ArmSub m_ArmSub = new ArmSub();
+  public  DriveSub m_DriveSub = new DriveSub();
+  public  RollerSub m_RollerSub = new RollerSub();
+  public LEDSub m_LEDSub = new LEDSub();
 
   //joysticks
-  Spark blinkin = new Spark(5);
 
-  private Joystick rightStick = null;
-  private Joystick leftStick = null;
+  public Joystick rightStick = null;
+  public Joystick leftStick = null;
   private CommandXboxController xboxOne = new CommandXboxController(2);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandXboxController m_driverController =
@@ -85,7 +94,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
    * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
+   * joysticks}.`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
    */
   private void configureBindings()  { 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
@@ -96,9 +105,26 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-      xboxOne.b().whileTrue(new ActiveLevel(0, 1.5));    
-      xboxOne.y().whileTrue(new MovePivot(0.25));
-      xboxOne.x().whileTrue(new MovePivot(-0.25));
+      xboxOne.leftBumper().whileTrue(new MovePivot(0.2));
+     xboxOne.rightBumper().whileTrue(new MovePivot(-0.2));
+     JoystickButton directionButton = new JoystickButton(rightStick, 2);
+     directionButton.debounce(0.05).toggleOnTrue(new SwitchRobotDirection());
+
+     // directionButton.debounce(0.5).whileActiveOnce(((new SwitchDirection())));
+      JoystickButton slowButton = new JoystickButton(rightStick, 1);
+      slowButton.whileTrue(new SlowSwitch());
+
+      xboxOne.a().whileTrue(new MoveIntake(0.35));
+      xboxOne.b().whileTrue(new MoveIntake(-0.35));
+      xboxOne.x().whileTrue(new MoveExtend(0.35));
+      xboxOne.y().whileTrue(new MoveExtend(-0.35));
+      //xboxOne.leftBumper().whileTrue(new MoveClaw(0.2));
+      //xboxOne.rightBumper().whileTrue(new MoveClaw(-0.2));
+    // xboxOne.leftBumper().whileTrue(new SetLED("yellow"));
+    xboxOne.back().whileTrue(new RotateLED());
+   // xboxOne.leftBumper().whileTrue(new RotateLED()); 
+
+
 
 
 
@@ -130,8 +156,5 @@ public CommandXboxController getxbox() {
   return xboxOne;
 }
 
-public Spark getBlinkin()
-  {
-    return blinkin;
-  }
+
 }

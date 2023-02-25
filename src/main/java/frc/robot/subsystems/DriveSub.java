@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.concurrent.CancellationException;
 
+import javax.naming.directory.DirContext;
+
 import org.ejml.dense.block.decomposition.hessenberg.TridiagonalDecompositionHouseholder_MT_FDRB;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -41,9 +43,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class DriveSub extends SubsystemBase {
 
+  public int direction  = 1; //1=pos, -1 = neg
+  public boolean slow = false;
+
   CANSparkMax bottomLeft = new CANSparkMax(2, MotorType.kBrushless);
   CANSparkMax topLeft = new CANSparkMax(3, MotorType.kBrushless);
-  CANSparkMax bottomRight =new CANSparkMax(4, MotorType.kBrushless);
+  CANSparkMax bottomRight = new CANSparkMax(4, MotorType.kBrushless);
   CANSparkMax topRight = new CANSparkMax(5, MotorType.kBrushless);
 
   
@@ -55,7 +60,7 @@ public class DriveSub extends SubsystemBase {
 
 
   private final Gyro m_gyro = new ADXRS450_Gyro();
-  //private Pigeon2 m_imu = new Pigeon2(6);
+//private Pigeon2 m_imu = new Pigeon2(22);//22 ////?? on proto
   private final DifferentialDriveOdometry m_odometry;
 
 
@@ -72,6 +77,8 @@ public class DriveSub extends SubsystemBase {
     topRightEncoder.setPositionConversionFactor(Constants.distancePerPulse);
     topLeftEncoder.setVelocityConversionFactor(Constants.distancePerPulse);
     topRightEncoder.setVelocityConversionFactor(Constants.distancePerPulse);
+    setDrive(0,0);
+
 
     
     resetEncoders();
@@ -106,6 +113,23 @@ public class DriveSub extends SubsystemBase {
 
 
     
+  }
+
+  public int getDirection(){
+    return direction;
+  }
+
+  public void setSlow(boolean slow){
+    this.slow = slow;
+  }
+
+  public boolean getSlow(){
+    return slow;
+  }
+
+  public void setDirection(int direction)
+  {
+    this.direction = direction;
   }
 
   public double getYaw()
@@ -163,7 +187,7 @@ public class DriveSub extends SubsystemBase {
   public double getPitch()
   {
     return 0;
-    //return m_imu.getPitch();
+   // return m_imu.getRoll();
   }
 
 

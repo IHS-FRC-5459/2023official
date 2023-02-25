@@ -11,18 +11,20 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClawSub extends SubsystemBase {
+
+  CANSparkMax neoClaw = new CANSparkMax(15, MotorType.kBrushless);
+
   //create neo
-  private static CANSparkMax neoClaw;
-  private static RelativeEncoder neoClawEN;
+  //private static RelativeEncoder neoClawEN;
   /** Creates a new ClawSub. */
   public ClawSub() {
-   // neoClaw = new CANSparkMax(5, MotorType.kBrushless);
-   // neoClaw.setInverted(false);
+   ////neoClaw = new CANSparkMax(18, MotorType.kBrushless);
+   //neoClaw.setInverted(false);
   }
   // sets power of claw motor
   public void setClaw(double pwr)
   {
-   // neoClaw.set(pwr);
+   neoClaw.set(pwr);
    // neoClawEN = neoClaw.getEncoder();
   }
   // gets encoder value of claw

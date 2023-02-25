@@ -14,13 +14,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class RollerSub extends SubsystemBase{
     // making motors and encoder
 
-    private static CANSparkMax neoR;
-    private static RelativeEncoder neoREN;
+    private static CANSparkMax neoR  = new CANSparkMax(21,  MotorType.kBrushless);
 
     public RollerSub(){
         // setting stuff up
-        //neoR = new CANSparkMax(7,  MotorType.kBrushless);
-        //neoR.setInverted(true);
+        
+ 
     }
     // get encoder
     public double getEncoder(){
@@ -30,7 +29,7 @@ public class RollerSub extends SubsystemBase{
     }
     // set speed of roller
     public void setRoller(double pwr){
-       // neoR.set(pwr);
+        neoR.set(pwr);
       //  neoREN = neoR.getEncoder();
     }
 

@@ -9,17 +9,21 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.estimator.ExtendedKalmanFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSub extends SubsystemBase {
 
+  int position = 0;
+  int[] ticksToPos= {0,100,200,300}; //zero, low, mid, high
+
   //create falcon 500
 WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
 WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
 
- //WPI_TalonFX extendMotor = new WPI_TalonFX(11);
- // DigitalInput bottomLimit = new DigitalInput(0);
+ WPI_TalonFX extendMotor = new WPI_TalonFX(30);
+ DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
   public ArmSub() {
@@ -30,7 +34,7 @@ WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
    pivotMotor2.setNeutralMode(NeutralMode.Brake);
    //pivotMotor.setInverted(true);
 
-    //extendMotor.setNeutralMode(NeutralMode.Brake);
+  //  extendMotor.setNeutralMode(NeutralMode.Brake);
 
 
 
@@ -45,7 +49,7 @@ WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
 // sets arm to a speed
   public void setExtend(double pwr)
   {
-   // extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
+    extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
 // gets encoder value of arm
   public double getTicks()
@@ -62,12 +66,72 @@ public double getPivotTicks(){
 }
 // sees if the arm is fully reatracted
   public boolean getLimitSwitch()
-  { return false;
-   // return bottomLimit.get();
+  { 
+    return bottomLimit.get();
   }
 
 
+  public void addPos()
+  {
+    if(!(position == 4))
+    {
+      position++;
+    }
+  
+  }
 
+  public void subPos()
+  {
+    if(!(position == 0))
+    {
+      position--;
+    }
+  }
+
+  public double getRequiredTicks()
+  {
+    return ticksToPos[position];
+  }
+
+  public void moveToPosition(double pwr, int deadspace)
+  {
+    // if touching limit switch, set encoder value to 0 and dont allow going backwards
+    // if current ticks > goalTicks, move with -pwr to current ticks = goalticks +- deadspace
+    // if current ticks < goalTicks, move with pwr to current ticks = goalticks +- deadspace
+    int goalTicks = ticksToPos[position];
+
+    //reset enc
+    if(getLimitSwitch())
+    {
+      resetEncoder();
+    }
+
+    //check if in deadspace, only move if in deadspace
+    if(!(getTicks() > (goalTicks - deadspace) && getTicks() < (goalTicks + deadspace)))
+    {
+      //when current pos > wanted pos
+      if(getTicks() > goalTicks){
+        //move backwards, pwr = neg
+        if(!getLimitSwitch())
+        {
+          setExtend(-pwr);
+
+        }
+
+      } else //when current pos < wanted pos
+      {
+        //move forwards, pwr = pos
+        setExtend(pwr);
+
+      }
+
+    }
+
+
+    
+
+    
+  }
   
 
 

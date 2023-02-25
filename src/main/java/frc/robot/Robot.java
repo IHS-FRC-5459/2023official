@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.ejml.dense.row.MatrixFeatures_CDRM;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.MjpegServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -28,6 +30,7 @@ import frc.robot.commands.AutoRoutes.chargestation;
 import frc.robot.commands.AutoRoutes.forwardOnly;
 //import frc.robot.commands.AutoRoutes.threeft;
 import frc.robot.commands.AutoRoutes.threeftog;
+import frc.robot.subsystems.LEDSub;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,14 +40,21 @@ import frc.robot.commands.AutoRoutes.threeftog;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  
 // sets up sendable chooser
   public static RobotContainer m_robotContainer;
   private Command driveCommand;
+
   private SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+
+
+
+   
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -55,6 +65,7 @@ public class Robot extends TimedRobot {
     driveCommand = new Drive();
     autoChooser.addOption("basic auto", new forwardOnly());
     autoChooser.addOption("chargestation auto", new chargestation());
+    autoChooser.setDefaultOption("default", new chargestation());
 
     /* 
     autoChooser.addOption("Left Auto", new LeftAuto());
@@ -75,13 +86,9 @@ public class Robot extends TimedRobot {
     
     UsbCamera c = CameraServer.startAutomaticCapture();
     MjpegServer server = new MjpegServer("cam server", 5459);
-    
       server.setSource(c);
       server.setFPS(24);
       server.setResolution(640,480);
-    
-    //camera
-
   }
 
   /**
@@ -104,6 +111,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("enc distance", m_robotContainer.m_DriveSub.getAverageEncoderDistance());
     SmartDashboard.putNumber("left enc distance", m_robotContainer.m_DriveSub.getLeftEncoderDistance());
     SmartDashboard.putNumber("right enc distance", m_robotContainer.m_DriveSub.getRightEncoderDistance());
+    SmartDashboard.putBoolean("switch hit", m_robotContainer.m_ArmSub.getLimitSwitch());
+    
+    //m_robotContainer.m_ArmSub.moveToPosition(0.2, 10);
 
 
 
@@ -143,7 +153,6 @@ public class Robot extends TimedRobot {
 
     }
     driveCommand.schedule();
-    m_robotContainer.getBlinkin().set(0);
 
   }
 
