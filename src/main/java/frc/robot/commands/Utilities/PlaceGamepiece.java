@@ -31,11 +31,10 @@ public class PlaceGamepiece extends CommandBase {
   public SequentialCommandGroup getPickupPiece(){
     return new SequentialCommandGroup(
       new Arm(aP, 2, 0, level),
-      new WaitCommand(0.7),
       new Claw(-cP),
       new WaitCommand(0.1),
-      new Claw(-cP),
-      new FullyRetract(1.5 * aP)
+      new Claw(0),
+      new FullyRetract(aP)
     );
   }
   // Called once the command ends or is interrupted.
