@@ -19,6 +19,7 @@ public class PlaceGamepiece extends CommandBase {
     this.level = level;
     this.aP = aP;
     this.cP = cP;
+   
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +28,7 @@ public class PlaceGamepiece extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute(){}
   public SequentialCommandGroup getPickupPiece(){
     return new SequentialCommandGroup(
       new Arm(aP, 2, 0, level),
@@ -37,6 +38,7 @@ public class PlaceGamepiece extends CommandBase {
       new FullyRetract(aP)
     );
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

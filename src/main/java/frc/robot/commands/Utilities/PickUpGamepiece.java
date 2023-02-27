@@ -34,7 +34,6 @@ public class PickUpGamepiece extends CommandBase {
   public void execute() {
     
   }
-
   public SequentialCommandGroup getPickupPiece(){
     return new SequentialCommandGroup(
       
