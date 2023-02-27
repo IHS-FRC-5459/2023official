@@ -12,7 +12,6 @@ public class Top  extends SequentialCommandGroup {
     public Top(){
         addCommands(
             new PlaceGamepiece(0.3, 0.1, 3)
-
         );
     }
 }

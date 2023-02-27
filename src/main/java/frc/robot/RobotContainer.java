@@ -116,8 +116,8 @@ public class RobotContainer {
 
       xboxOne.a().whileTrue(new MoveIntake(0.35));
       xboxOne.b().whileTrue(new MoveIntake(-0.35));
-      xboxOne.x().whileTrue(new MoveExtend(0.35));
-      xboxOne.y().whileTrue(new MoveExtend(-0.35));
+      xboxOne.x().whileTrue(new MoveExtend(0.25));
+      xboxOne.y().whileTrue(new MoveExtend(-0.25));
       //xboxOne.leftBumper().whileTrue(new MoveClaw(0.2));
       //xboxOne.rightBumper().whileTrue(new MoveClaw(-0.2));
     // xboxOne.leftBumper().whileTrue(new SetLED("yellow"));
