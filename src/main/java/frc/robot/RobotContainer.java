@@ -12,6 +12,7 @@ import frc.robot.commands.Utilities.MoveClaw;
 import frc.robot.commands.Utilities.MoveExtend;
 import frc.robot.commands.Utilities.MoveIntake;
 import frc.robot.commands.Utilities.MovePivot;
+import frc.robot.commands.Utilities.RotateExtension;
 import frc.robot.commands.Utilities.RotateLED;
 import frc.robot.commands.Utilities.SlowSwitch;
 import frc.robot.commands.Utilities.SwitchRobotDirection;
@@ -105,8 +106,18 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-      xboxOne.leftBumper().whileTrue(new MovePivot(0.2));
-     xboxOne.rightBumper().whileTrue(new MovePivot(-0.2));
+      xboxOne.x().whileTrue(new MovePivot(0.2));
+     xboxOne.y().whileTrue(new MovePivot(-0.2));
+     xboxOne.a().whileTrue(new MoveIntake(0.35));
+     xboxOne.b().whileTrue(new MoveIntake(-0.35));
+   //  xboxOne.leftBumper().debounce(0.1).whileTrue(new RotateExtension(-1));
+   //  xboxOne.rightBumper().debounce(0.1).whileTrue(new RotateExtension(1));
+   xboxOne.leftBumper().whileTrue(new MoveExtend(-0.3));
+     xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
+   xboxOne.start().whileTrue(new RotateLED());
+
+
+
      JoystickButton directionButton = new JoystickButton(rightStick, 2);
      directionButton.debounce(0.05).toggleOnTrue(new SwitchRobotDirection());
 
@@ -114,14 +125,12 @@ public class RobotContainer {
       JoystickButton slowButton = new JoystickButton(rightStick, 1);
       slowButton.whileTrue(new SlowSwitch());
 
-      xboxOne.a().whileTrue(new MoveIntake(0.35));
-      xboxOne.b().whileTrue(new MoveIntake(-0.35));
-      xboxOne.x().whileTrue(new MoveExtend(0.25));
-      xboxOne.y().whileTrue(new MoveExtend(-0.25));
+     
+     // xboxOne.x().whileTrue(new MoveExtend(0.25));
+     // xboxOne.y().whileTrue(new MoveExtend(-0.25));
       //xboxOne.leftBumper().whileTrue(new MoveClaw(0.2));
       //xboxOne.rightBumper().whileTrue(new MoveClaw(-0.2));
     // xboxOne.leftBumper().whileTrue(new SetLED("yellow"));
-    xboxOne.back().whileTrue(new RotateLED());
    // xboxOne.leftBumper().whileTrue(new RotateLED()); 
 
 

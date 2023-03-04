@@ -60,7 +60,7 @@ public class DriveSub extends SubsystemBase {
 
 
   private final Gyro m_gyro = new ADXRS450_Gyro();
-//private Pigeon2 m_imu = new Pigeon2(22);//22 ////?? on proto
+  private Pigeon2 m_imu = new Pigeon2(22);//22 ////?? on proto
   private final DifferentialDriveOdometry m_odometry;
 
 
@@ -185,9 +185,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getPitch()
-  {
-    return 0;
-   // return m_imu.getRoll();
+  {    return m_imu.getRoll();
   }
 
 
@@ -198,7 +196,7 @@ public class DriveSub extends SubsystemBase {
     m_odometry.update(
         m_gyro.getRotation2d(), topLeftEncoder.getPosition(), topRightEncoder.getPosition());
   }
-
+/* 
   public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath) throws NullPointerException{
     
     return new SequentialCommandGroup(
@@ -226,6 +224,6 @@ public class DriveSub extends SubsystemBase {
     );
 
     
-}
+}*/
 
 }

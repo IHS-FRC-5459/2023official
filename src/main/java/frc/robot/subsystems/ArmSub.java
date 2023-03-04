@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSub extends SubsystemBase {
 
   int position = 0;
-  int[] ticksToPos= {0,100,200,300}; //zero, low, mid, high
+  int[] ticksToPos= {0,200,300}; //zero, low, mid, high
 
   //create falcon 500
 WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
@@ -34,7 +34,10 @@ WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
    pivotMotor2.setNeutralMode(NeutralMode.Brake);
    //pivotMotor.setInverted(true);
 
-  //  extendMotor.setNeutralMode(NeutralMode.Brake);
+    extendMotor.setNeutralMode(NeutralMode.Brake);
+
+    
+    extendMotor.setInverted(true);
 
 
 
@@ -46,18 +49,18 @@ WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
    pivotMotor2.set(TalonFXControlMode.PercentOutput, -pwr);
 
   }
-// sets arm to a speed
+  //sets arm to a speed
   public void setExtend(double pwr)
   {
     extendMotor.set(TalonFXControlMode.PercentOutput, pwr);
   }
-// gets encoder value of arm
+  //gets encoder value of arm
   public double getTicks()
   {
-    return 0;  //return extendMotor.getSelectedSensorPosition();
+    return extendMotor.getSelectedSensorPosition()/100;
   }
   public void resetEncoder(){
-    //extendMotor.setSelectedSensorPosition(0);
+    extendMotor.setSelectedSensorPosition(0);
     
   }
 public double getPivotTicks(){
@@ -67,13 +70,13 @@ public double getPivotTicks(){
 // sees if the arm is fully reatracted
   public boolean getLimitSwitch()
   { 
-    return bottomLimit.get();
+    return !(bottomLimit.get());
   }
 
 
   public void addPos()
   {
-    if(!(position == 4))
+    if(!(position == 2))
     {
       position++;
     }
@@ -101,11 +104,11 @@ public double getPivotTicks(){
     int goalTicks = ticksToPos[position];
 
     //reset enc
-    if(getLimitSwitch())
+    if((getLimitSwitch()))
     {
       resetEncoder();
     }
-
+/* 
     //check if in deadspace, only move if in deadspace
     if(!(getTicks() > (goalTicks - deadspace) && getTicks() < (goalTicks + deadspace)))
     {
@@ -125,7 +128,7 @@ public double getPivotTicks(){
 
       }
 
-    }
+    }*/
 
 
     

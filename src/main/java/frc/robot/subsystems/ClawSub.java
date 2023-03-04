@@ -38,4 +38,25 @@ public class ClawSub extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+public void moveClaw(double xboxLeftTrigger, double xboxRightTrigger) {
+  if(xboxLeftTrigger < 0.1 && xboxRightTrigger < 0.1)
+  {
+    setClaw(0);
+  } else 
+  {
+    if(xboxLeftTrigger > 0.1)
+    {
+      setClaw(-0.2);
+    } else {
+      if(xboxRightTrigger > 0.5){
+        setClaw(0.25);
+  
+      } else if (xboxRightTrigger > 0.1) {
+        setClaw(0.1);
+  
+      }
+    }
+  }
+
+}
 }

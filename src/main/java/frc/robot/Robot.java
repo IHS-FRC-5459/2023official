@@ -18,14 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drive;
-import frc.robot.commands.AutoRoutes.LeftAuto;
-import frc.robot.commands.AutoRoutes.LeftLevelAuto;
-import frc.robot.commands.AutoRoutes.MiddleAuto;
-import frc.robot.commands.AutoRoutes.MiddleLevelAuto;
-import frc.robot.commands.AutoRoutes.PlaceOne;
-import frc.robot.commands.AutoRoutes.PlaceOneLevel;
-import frc.robot.commands.AutoRoutes.RightAuto;
-import frc.robot.commands.AutoRoutes.RightLevelAuto;
+
 import frc.robot.commands.AutoRoutes.chargestation;
 import frc.robot.commands.AutoRoutes.forwardOnly;
 //import frc.robot.commands.AutoRoutes.threeft;
@@ -89,6 +82,7 @@ public class Robot extends TimedRobot {
       server.setSource(c);
       server.setFPS(24);
       server.setResolution(640,480);
+      
   }
 
   /**
@@ -105,15 +99,20 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    //double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
-    //SmartDashboard.putNumber("pitch", pitch);
+    double pitch = Robot.m_robotContainer.m_DriveSub.getPitch();
+  SmartDashboard.putNumber("pitch", pitch);
     //SmartDashboard.putNumber("power", (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch))));
     SmartDashboard.putNumber("enc distance", m_robotContainer.m_DriveSub.getAverageEncoderDistance());
     SmartDashboard.putNumber("left enc distance", m_robotContainer.m_DriveSub.getLeftEncoderDistance());
     SmartDashboard.putNumber("right enc distance", m_robotContainer.m_DriveSub.getRightEncoderDistance());
     SmartDashboard.putBoolean("switch hit", m_robotContainer.m_ArmSub.getLimitSwitch());
-    
-    //m_robotContainer.m_ArmSub.moveToPosition(0.2, 10);
+    SmartDashboard.putNumber("arm extend enc distance", m_robotContainer.m_ArmSub.getTicks());
+
+    m_robotContainer.m_ArmSub.moveToPosition(0.2, 10);
+
+    double xboxLeftTrigger = m_robotContainer.getxbox().getLeftTriggerAxis();
+    double xboxRightTrigger = m_robotContainer.getxbox().getRightTriggerAxis();
+    m_robotContainer.m_ClawSub.moveClaw(xboxLeftTrigger, xboxRightTrigger);
 
 
 

@@ -22,6 +22,8 @@ public class LEDSub extends SubsystemBase {
     } else{ position++; }
   }
 
+
+
   public double getSet(){
     return speeds[position];
   }

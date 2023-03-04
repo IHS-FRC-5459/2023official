@@ -19,7 +19,14 @@ public class RotateExtension extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if(dir < 0){
+      Robot.m_robotContainer.m_ArmSub.subPos();
+    }else{
+      Robot.m_robotContainer.m_ArmSub.addPos();
+
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -28,12 +35,7 @@ public class RotateExtension extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(dir < 0){
-      Robot.m_robotContainer.m_ArmSub.subPos();
-    }else{
-      Robot.m_robotContainer.m_ArmSub.addPos();
 
-    }
 
   }
 
