@@ -16,14 +16,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSub extends SubsystemBase {
 
   int position = 0;
-  int[] ticksToPos= {0,200,300}; //zero, low, mid, high
+int[] ticksToPos= {0,216,441}; //zero, low, mid, high
 
   //create falcon 500
 WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
 WPI_TalonFX pivotMotor2 = new WPI_TalonFX(11);
 
  WPI_TalonFX extendMotor = new WPI_TalonFX(30);
- DigitalInput bottomLimit = new DigitalInput(0);
 
   /** Creates a new ArmSub. */
   public ArmSub() {
@@ -68,10 +67,6 @@ public double getPivotTicks(){
   //return pivotMotor.getSelectedSensorPosition();
 }
 // sees if the arm is fully reatracted
-  public boolean getLimitSwitch()
-  { 
-    return !(bottomLimit.get());
-  }
 
 
   public void addPos()
@@ -81,6 +76,11 @@ public double getPivotTicks(){
       position++;
     }
   
+  }
+
+  public void setPos(int pos)
+  {
+    position = pos;
   }
 
   public void subPos()
@@ -104,42 +104,109 @@ public double getPivotTicks(){
     int goalTicks = ticksToPos[position];
 
     //reset enc
-    if((getLimitSwitch()))
-    {
-      resetEncoder();
+ 
+
+    if(position == 0){
+      if(!(getTicks()<5))
+      {
+        
+        setExtend(-0.3);
+      } else {
+        setExtend(0);
+      }
+    } else if (position == 2){
+      if(getTicks() < goalTicks - deadspace){
+          setExtend(0.3);
+      } else {
+        setExtend(0);
+      }
+    } else if(position ==1) { //pos = 1
+      if((getTicks() < goalTicks + deadspace) && (getTicks() > goalTicks - deadspace))
+      {
+        setExtend(0);
+      } else if (getTicks() > (goalTicks)){//above
+        setExtend(-0.3);
+      } else {
+        setExtend(0.3);
+
+      }
+    } else {
+      setExtend(0);
     }
+
+
+
+
 /* 
     //check if in deadspace, only move if in deadspace
-    if(!(getTicks() > (goalTicks - deadspace) && getTicks() < (goalTicks + deadspace)))
-    {
-      //when current pos > wanted pos
+   
+      if(!(getTicks() > (goalTicks - deadspace) && getTicks() < (goalTicks + deadspace)))
+      {
+              //when current pos > wanted pos
       if(getTicks() > goalTicks){
         //move backwards, pwr = neg
         if(!getLimitSwitch())
         {
-          setExtend(-pwr);
+
+          if(!(getTicks() > (goalTicks - deadspace*3) && getTicks() < (goalTicks + deadspace*3)))
+          {
+            setExtend(-0.3333*pwr);
+          } else {
+            setExtend(-pwr);
+
+          }
 
         }
 
       } else //when current pos < wanted pos
       {
         //move forwards, pwr = pos
-        setExtend(pwr);
+        if(!(getTicks() > (goalTicks - deadspace*2) && getTicks() < (goalTicks + deadspace*2)))
+          {
+            setExtend(pwr);
+          }else{
+            setExtend(pwr);
+
+          }
 
       }
+      } else {
+        setExtend(0);
+      }
 
-    }*/
 
+    
 
+*/
     
 
     
   }
   
 
+  public void xboxPivot(double y) {
+
+    if(y > 0.9){
+//+
+      setPivot(0.135);
+    } else if (y < -0.9)
+    {
+      //-
+      setPivot(-0.135);
+
+    } else {
+      setPivot(0);
+    }
+}
+
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+  public double getPosition() {
+    return position;
+  }
+
 }

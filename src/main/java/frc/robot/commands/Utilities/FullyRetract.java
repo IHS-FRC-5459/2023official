@@ -38,7 +38,7 @@ public class FullyRetract extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Robot.m_robotContainer.m_ArmSub.getLimitSwitch()){
+    if(Robot.m_robotContainer.m_ArmSub.getTicks() < 5){
       return true;
     }
     return false;

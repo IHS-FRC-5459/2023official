@@ -7,6 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
+import frc.robot.commands.Utilities.AutoIntake;
+import frc.robot.commands.Utilities.AutoScore;
+import frc.robot.commands.Utilities.ConstantClaw;
 import frc.robot.commands.Utilities.DriveStraight;
 import frc.robot.commands.Utilities.MoveClaw;
 import frc.robot.commands.Utilities.MoveExtend;
@@ -16,6 +19,7 @@ import frc.robot.commands.Utilities.RotateExtension;
 import frc.robot.commands.Utilities.RotateLED;
 import frc.robot.commands.Utilities.SlowSwitch;
 import frc.robot.commands.Utilities.SwitchRobotDirection;
+import frc.robot.commands.Utilities.ZeroExtendEncoder;
 import frc.robot.subsystems.ArmSub;
 import frc.robot.subsystems.ClawSub;
 import frc.robot.subsystems.DriveSub;
@@ -106,15 +110,20 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-      xboxOne.x().whileTrue(new MovePivot(0.2));
-     xboxOne.y().whileTrue(new MovePivot(-0.2));
+   //  xboxOne.x().whileTrue(new MovePivot(0.2));
+   //  xboxOne.y().whileTrue(new MovePivot(-0.2));
+
+     xboxOne.x().debounce(0.2).onTrue(new AutoScore());
+    xboxOne.y().debounce(0.1).whileTrue(new ConstantClaw());
+    
      xboxOne.a().whileTrue(new MoveIntake(0.35));
      xboxOne.b().whileTrue(new MoveIntake(-0.35));
-   //  xboxOne.leftBumper().debounce(0.1).whileTrue(new RotateExtension(-1));
-   //  xboxOne.rightBumper().debounce(0.1).whileTrue(new RotateExtension(1));
-   xboxOne.leftBumper().whileTrue(new MoveExtend(-0.3));
-     xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
+    xboxOne.leftBumper().debounce(0.1).whileTrue(new RotateExtension(-1));
+    xboxOne.rightBumper().debounce(0.1).whileTrue(new RotateExtension(1));
+  //xboxOne.leftBumper().whileTrue(new MoveExtend(-0.25));
+   // xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
    xboxOne.start().whileTrue(new RotateLED());
+   xboxOne.back().whileTrue(new ZeroExtendEncoder());
 
 
 
@@ -123,9 +132,10 @@ public class RobotContainer {
 
      // directionButton.debounce(0.5).whileActiveOnce(((new SwitchDirection())));
       JoystickButton slowButton = new JoystickButton(rightStick, 1);
-      slowButton.whileTrue(new SlowSwitch());
+      slowButton.debounce(0.15).toggleOnTrue(new SlowSwitch());
 
-     
+     JoystickButton autobalanceButton = new JoystickButton(rightStick, 12);
+    autobalanceButton.whileTrue(new ActiveLevel(0, 0));
      // xboxOne.x().whileTrue(new MoveExtend(0.25));
      // xboxOne.y().whileTrue(new MoveExtend(-0.25));
       //xboxOne.leftBumper().whileTrue(new MoveClaw(0.2));

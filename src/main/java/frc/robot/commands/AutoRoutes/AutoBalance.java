@@ -5,19 +5,18 @@
 package frc.robot.commands.AutoRoutes;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Utilities.DriveDistance;
+import frc.robot.commands.ActiveLevel;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class chargestation extends SequentialCommandGroup {
-  /** Creates a new chargestation. */
-  public chargestation() {
+public class AutoBalance extends SequentialCommandGroup {
+  /** Creates a new AutoBalance. */
+  public AutoBalance() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveDistance(0.2, 160),
-            new DriveDistance(-0.2, 70)
+      new ActiveLevel(0.7, 0.6)
     );
   }
 }

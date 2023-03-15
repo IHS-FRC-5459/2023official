@@ -142,6 +142,8 @@ public class DriveSub extends SubsystemBase {
   }
 
 
+
+
   public void resetEncoders() {
     topLeftEncoder.setPosition(0);
     topRightEncoder.setPosition(0);
@@ -185,7 +187,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getPitch()
-  {    return m_imu.getRoll();
+  {    return m_imu.getPitch();
   }
 
 

@@ -15,12 +15,15 @@ public class SlowSwitch extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    boolean isS = Robot.m_robotContainer.m_DriveSub.getSlow();
+    Robot.m_robotContainer.m_DriveSub.setSlow(!isS);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.m_robotContainer.m_DriveSub.setSlow(true);
+    //Robot.m_robotContainer.m_DriveSub.setSlow(true);
 
 
   }
@@ -28,7 +31,8 @@ public class SlowSwitch extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_robotContainer.m_DriveSub.setSlow(false);
+    boolean isS = Robot.m_robotContainer.m_DriveSub.getSlow();
+    Robot.m_robotContainer.m_DriveSub.setSlow(!isS);
 
   }
 

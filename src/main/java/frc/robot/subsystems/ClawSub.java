@@ -9,15 +9,17 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 public class ClawSub extends SubsystemBase {
 
   CANSparkMax neoClaw = new CANSparkMax(15, MotorType.kBrushless);
 
   //create neo
-  //private static RelativeEncoder neoClawEN;
+  private static RelativeEncoder neoClawEN;
   /** Creates a new ClawSub. */
   public ClawSub() {
+    neoClawEN = neoClaw.getEncoder();
    ////neoClaw = new CANSparkMax(18, MotorType.kBrushless);
    //neoClaw.setInverted(false);
   }
@@ -25,13 +27,13 @@ public class ClawSub extends SubsystemBase {
   public void setClaw(double pwr)
   {
    neoClaw.set(pwr);
+   System.out.println(pwr);
    // neoClawEN = neoClaw.getEncoder();
   }
   // gets encoder value of claw
   public double getEncoder()
-  {return 0;
- //   neoClawEN = neoClaw.getEncoder();
-   // return neoClawEN.getPosition();
+  {//return 0;
+   return neoClawEN.getPosition();
   }
 
   @Override
@@ -39,24 +41,33 @@ public class ClawSub extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 public void moveClaw(double xboxLeftTrigger, double xboxRightTrigger) {
-  if(xboxLeftTrigger < 0.1 && xboxRightTrigger < 0.1)
-  {
-    setClaw(0);
-  } else 
-  {
-    if(xboxLeftTrigger > 0.1)
+  if(xboxRightTrigger == 2){
+    setClaw(0.4);
+
+  } else {
+    if(xboxLeftTrigger < 0.1 && xboxRightTrigger < 0.1)
     {
-      setClaw(-0.2);
-    } else {
-      if(xboxRightTrigger > 0.5){
-        setClaw(0.25);
-  
-      } else if (xboxRightTrigger > 0.1) {
-        setClaw(0.1);
-  
+      setClaw(0);
+    } else 
+    {
+      if(xboxLeftTrigger > 0.1)
+      {
+        setClaw(-0.3);
+        Robot.setClawConstant(false);
+      } else {
+        if(xboxRightTrigger > 0.5){
+          setClaw(0.4);
+    
+        } else if (xboxRightTrigger > 0.1) {
+          setClaw(0.3);
+    
+        }
       }
     }
   }
+  
+ 
 
 }
 }
+

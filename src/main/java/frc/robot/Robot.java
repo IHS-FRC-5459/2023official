@@ -17,12 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Drive;
-
-import frc.robot.commands.AutoRoutes.chargestation;
-import frc.robot.commands.AutoRoutes.forwardOnly;
-//import frc.robot.commands.AutoRoutes.threeft;
-import frc.robot.commands.AutoRoutes.threeftog;
+import frc.robot.commands.AutoRoutes.AutoBalance;
+import frc.robot.commands.AutoRoutes.Middle;
+import frc.robot.commands.AutoRoutes.Num1;
+import frc.robot.commands.AutoRoutes.Num6;
+import frc.robot.commands.Utilities.AutoIntakeCubes;
 import frc.robot.subsystems.LEDSub;
 
 /**
@@ -32,6 +33,10 @@ import frc.robot.subsystems.LEDSub;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  static boolean overridePivot = false;
+  static boolean overrideClaw = false;
+  static boolean constantClawOverride = false;
   private Command m_autonomousCommand;
   
 // sets up sendable chooser
@@ -56,9 +61,17 @@ public class Robot extends TimedRobot {
     //m_robotContainer = RobotContainer.getInstance();
     // sets u snedable chooser
     driveCommand = new Drive();
-    autoChooser.addOption("basic auto", new forwardOnly());
-    autoChooser.addOption("chargestation auto", new chargestation());
-    autoChooser.setDefaultOption("default", new chargestation());
+    autoChooser.addOption("Center", new Middle());
+    autoChooser.addOption("Red Left", new Num6());
+    autoChooser.addOption("Red Right", new Num1());
+    autoChooser.addOption("Blue Left", new Num1());
+    autoChooser.addOption("Blue Right", new Num6());
+    autoChooser.addOption("balanceTEST", new AutoBalance());
+    autoChooser.addOption("pickUpTEST", new AutoIntakeCubes());
+
+
+
+
 
     /* 
     autoChooser.addOption("Left Auto", new LeftAuto());
@@ -78,11 +91,11 @@ public class Robot extends TimedRobot {
 
     
     UsbCamera c = CameraServer.startAutomaticCapture();
-    MjpegServer server = new MjpegServer("cam server", 5459);
+   /*  MjpegServer server = new MjpegServer("cam server", 5459);
       server.setSource(c);
       server.setFPS(24);
       server.setResolution(640,480);
-      
+      */
   }
 
   /**
@@ -105,15 +118,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("enc distance", m_robotContainer.m_DriveSub.getAverageEncoderDistance());
     SmartDashboard.putNumber("left enc distance", m_robotContainer.m_DriveSub.getLeftEncoderDistance());
     SmartDashboard.putNumber("right enc distance", m_robotContainer.m_DriveSub.getRightEncoderDistance());
-    SmartDashboard.putBoolean("switch hit", m_robotContainer.m_ArmSub.getLimitSwitch());
     SmartDashboard.putNumber("arm extend enc distance", m_robotContainer.m_ArmSub.getTicks());
+    SmartDashboard.putNumber("arm pos", m_robotContainer.m_ArmSub.getPosition());
+    SmartDashboard.putNumber("claw enc", m_robotContainer.m_ClawSub.getEncoder());
+    SmartDashboard.putBoolean("Claw Clamp", constantClawOverride);
+    m_robotContainer.m_ArmSub.moveToPosition(0.3, 10);
 
-    m_robotContainer.m_ArmSub.moveToPosition(0.2, 10);
 
-    double xboxLeftTrigger = m_robotContainer.getxbox().getLeftTriggerAxis();
-    double xboxRightTrigger = m_robotContainer.getxbox().getRightTriggerAxis();
-    m_robotContainer.m_ClawSub.moveClaw(xboxLeftTrigger, xboxRightTrigger);
-
+    //System.out.print("pitch " + Robot.m_robotContainer.m_DriveSub.getPitch());
+   
 
 
   }
@@ -128,8 +141,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_robotContainer.m_LEDSub.setBlinkIn(-0.45);
     m_autonomousCommand = autoChooser.getSelected();
- //m_autonomousCommand = new threeftog();
+ //m_autonomousCommand = new Middle();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -159,8 +173,34 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveCommand.execute();
+    double xboxLeftTrigger = m_robotContainer.getxbox().getLeftTriggerAxis();
+    double xboxRightTrigger = m_robotContainer.getxbox().getRightTriggerAxis();
+    if(xboxLeftTrigger > 0.1)
+    {
+      constantClawOverride = false;
+    }
+    if(constantClawOverride){
+      m_robotContainer.m_ClawSub.moveClaw(0, 2);
+
+    } else {
+      if(!overrideClaw) 
+      {
+        
+        // if(xboxLeftTrigger >= 0.1){m_robotContainer.m_ClawSub.setClaw(-xboxLeftTrigger)}
+        // else if(xboxRightTrigger >= 0.1){m_robotContainer.m_ClawSub.setClaw(xboxRightTrigger)}
+        m_robotContainer.m_ClawSub.moveClaw(xboxLeftTrigger, xboxRightTrigger);
+        //System.out.println(xboxLeftTrigger + ", " + xboxRightTrigger);
+     }
+    }
 
 
+
+    if(!overridePivot){
+      double y = m_robotContainer.getxbox().getLeftY();
+      m_robotContainer.m_ArmSub.xboxPivot(y);
+    }
+   
+    
   }
 
   @Override
@@ -181,5 +221,22 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {}
 
+  public static void setOverrideClaw(boolean v){
+    overrideClaw = v;
+  }
+
+  public static void setOverridePivot(boolean v)
+  {
+    overridePivot = v;
+  }
+
+  public static void switchClawConstant(){
+    constantClawOverride = !constantClawOverride;
+  }
+
+  public static void setClawConstant(boolean v)
+  {
+    constantClawOverride = v;
+  }
   
 }

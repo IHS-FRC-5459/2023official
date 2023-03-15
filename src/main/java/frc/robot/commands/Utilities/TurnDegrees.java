@@ -34,7 +34,6 @@ public class TurnDegrees extends CommandBase {
 
     currentAng = Robot.m_robotContainer.m_DriveSub.getYaw();
 
-    //double yawIntensity = Robot.m_robotContainer.m_DriveSub.getYaw()/100;
 
     
     if(goalAngle < 0){

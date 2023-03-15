@@ -9,6 +9,8 @@ import frc.robot.Robot;
 
 public class RotateExtension extends CommandBase {
   int dir = 0;
+  boolean isDirectSet = false;
+  int position = 0;
   /** Creates a new RotateExtension. */
 
   // dir = -1 is back, dir = 1 is forward
@@ -17,15 +19,12 @@ public class RotateExtension extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
+
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(dir < 0){
-      Robot.m_robotContainer.m_ArmSub.subPos();
-    }else{
-      Robot.m_robotContainer.m_ArmSub.addPos();
 
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +34,12 @@ public class RotateExtension extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if(dir < 0){
+      Robot.m_robotContainer.m_ArmSub.subPos();
+    }else{
+      Robot.m_robotContainer.m_ArmSub.addPos();
 
+    }
 
   }
 

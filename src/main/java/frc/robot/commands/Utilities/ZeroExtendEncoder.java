@@ -7,37 +7,25 @@ package frc.robot.commands.Utilities;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class MoveClaw extends CommandBase {
-  double pwr;
-  /** Creates a new MoveClaw. */
-  public MoveClaw(double pwr) {
-
-this.pwr = pwr;    // Use addRequirements() here to declare subsystem dependencies.
+public class ZeroExtendEncoder extends CommandBase {
+  /** Creates a new ZeroExtendEncoder. */
+  public ZeroExtendEncoder() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    Robot.setOverrideClaw(true);
-    Robot.setClawConstant(false);
-    Robot.m_robotContainer.m_ClawSub.setClaw(0);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.m_robotContainer.m_ClawSub.setClaw(pwr);
-
+    Robot.m_robotContainer.m_ArmSub.resetEncoder();;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-    Robot.m_robotContainer.m_ClawSub.setClaw(0);
-    Robot.setOverrideClaw(false);
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
