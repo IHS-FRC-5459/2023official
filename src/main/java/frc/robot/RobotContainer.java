@@ -117,12 +117,12 @@ public class RobotContainer {
      xboxOne.x().debounce(0.2).onTrue(new AutoScore());
     xboxOne.y().debounce(0.1).whileTrue(new ConstantClaw());
     
-     xboxOne.a().whileTrue(new MoveIntake(0.35));
-     xboxOne.b().whileTrue(new MoveIntake(-0.35));
+     xboxOne.b().whileTrue(new MoveIntake(0.45));
+     xboxOne.a().whileTrue(new MoveIntake(-0.35));
     xboxOne.leftBumper().debounce(0.1).whileTrue(new RotateExtension(-1));
     xboxOne.rightBumper().debounce(0.1).whileTrue(new RotateExtension(1));
   //xboxOne.leftBumper().whileTrue(new MoveExtend(-0.25));
-   // xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
+    //xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
    xboxOne.start().whileTrue(new RotateLED());
    xboxOne.back().whileTrue(new ZeroExtendEncoder());
 

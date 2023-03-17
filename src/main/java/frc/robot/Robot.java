@@ -18,10 +18,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drive;
 import frc.robot.commands.AutoRoutes.AutoBalance;
 import frc.robot.commands.AutoRoutes.Middle;
+import frc.robot.commands.AutoRoutes.NullAuto;
 import frc.robot.commands.AutoRoutes.Num1;
 import frc.robot.commands.AutoRoutes.Num6;
 import frc.robot.commands.Utilities.AutoIntakeCubes;
@@ -63,13 +65,12 @@ public class Robot extends TimedRobot {
     // sets u snedable chooser
     driveCommand = new Drive();
     autoChooser.addOption("Center", new Middle());
-    autoChooser.addOption("Red Left", new Num6());
-    autoChooser.addOption("Red Right", new Num1());
-    autoChooser.addOption("Blue Left", new Num1());
-    autoChooser.addOption("Blue Right", new Num6());
-    autoChooser.addOption("balanceTEST", new AutoBalance());
-    autoChooser.addOption("pickUpTEST", new AutoIntakeCubes());
+    autoChooser.addOption("Side Path", new Num6());
+    autoChooser.addOption("Do Nothing", new NullAuto());
+    autoChooser.setDefaultOption("Default (Side Path)", new Num6());
+    
 
+ 
 
 
 

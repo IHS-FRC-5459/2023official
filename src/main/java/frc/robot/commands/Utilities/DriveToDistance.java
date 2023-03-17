@@ -48,7 +48,7 @@ public class DriveToDistance extends CommandBase {
          {
           newpower *= -1;
          }
-         System.out.println(distLeft + " " +newpower);
+     //    System.out.println(distLeft + " " +newpower);
 
           
         Robot.m_robotContainer.m_DriveSub.setDrive(newpower + yawIntensity , newpower - yawIntensity );

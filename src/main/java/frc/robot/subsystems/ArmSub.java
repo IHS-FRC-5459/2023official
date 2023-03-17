@@ -109,10 +109,15 @@ public double getPivotTicks(){
  
 
     if(position == 0){
-      if(!(getTicks()<5))
+      if(!(getTicks()<8))
       {
-        
-        setExtend(-0.3);
+        if(getTicks()<ticksToPos[1]){
+          setExtend(-0.15);
+
+        } else {
+          setExtend(-0.3);
+
+        }
       } else {
         setExtend(0);
       }
