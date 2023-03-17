@@ -21,7 +21,13 @@ public class RotateExtension extends CommandBase {
 
 
 
-  // Called when the command is initially scheduled.
+  public RotateExtension(String mode) {
+     position = 4321;
+}
+
+
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
@@ -34,12 +40,19 @@ public class RotateExtension extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(dir < 0){
-      Robot.m_robotContainer.m_ArmSub.subPos();
-    }else{
-      Robot.m_robotContainer.m_ArmSub.addPos();
+    if(position == 4321)
+    {
+      Robot.m_robotContainer.m_ArmSub.setPos(4);
 
+    } else {
+      if(dir < 0){
+        Robot.m_robotContainer.m_ArmSub.subPos();
+      }else{
+        Robot.m_robotContainer.m_ArmSub.addPos();
+  
+      }
     }
+    
 
   }
 

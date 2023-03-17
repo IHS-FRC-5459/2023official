@@ -19,6 +19,7 @@ public class ArmSub extends SubsystemBase {
 
   int position = 0;
 int[] ticksToPos= {0,216,441}; //zero, low, mid, high
+int ticksToIntakePos = 69;
 
   //create falcon 500
 WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
@@ -73,9 +74,15 @@ public double getPivotTicks(){
 
   public void addPos()
   {
-    if(!(position == 2))
-    {
-      position++;
+    
+
+    if(position == 4){
+      position = 1;
+    } else {
+      if(!(position == 2))
+      {
+        position++;
+      }
     }
   
   }
@@ -87,10 +94,15 @@ public double getPivotTicks(){
 
   public void subPos()
   {
-    if(!(position == 0))
-    {
-      position--;
+    if(position == 4){
+      position = 0;
+    } else {
+      if(!(position == 0))
+      {
+        position--;
+      }
     }
+    
   }
 
   public double getRequiredTicks()
@@ -137,8 +149,19 @@ public double getPivotTicks(){
         setExtend(0.3);
 
       }
+    } else if(position ==4){
+      if((getTicks() < ticksToIntakePos + deadspace) && (getTicks() > ticksToIntakePos - deadspace))
+      {
+        setExtend(0);
+      } else if (getTicks() > (goalTicks)){//above
+        setExtend(-0.15);
+      } else {
+        setExtend(0.15);
+
+      }
     } else {
       setExtend(0);
+
     }
 
 
