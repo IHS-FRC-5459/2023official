@@ -18,8 +18,9 @@ public class AutoScore extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
-      new ParallelRaceGroup(new WaitCommand(0.3), new MoveClaw(-0.3)),
+      new ParallelRaceGroup(new WaitCommand(0.3), new MoveClaw(-0.25)),
       new ParallelRaceGroup(new WaitCommand(0.1), new RotateExtension(-1),new RotateExtension(-1),new RotateExtension(-1)),
+      new WaitCommand(0.5),
       new ParallelRaceGroup(new WaitCommand(0.6), new MovePivot(0.2))
       //new ParallelCommandGroup(new ParallelRaceGroup(new WaitCommand(0.62), new MoveClaw(0.2)))
     );

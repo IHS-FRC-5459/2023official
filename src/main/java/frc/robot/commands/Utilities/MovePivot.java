@@ -4,13 +4,15 @@
 
 package frc.robot.commands.Utilities;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Mechanism.Claw;
 import frc.robot.commands.Mechanism.Roller;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+
 
 public class MovePivot extends CommandBase {
   /** Creates a new PickUpGamepiece. */

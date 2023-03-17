@@ -5,16 +5,20 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Mechanism.Arm;
 import frc.robot.commands.Utilities.AutoIntake;
-import frc.robot.commands.Utilities.AutoScore;
-import frc.robot.commands.Utilities.ConstantClaw;
 import frc.robot.commands.Utilities.DriveStraight;
 import frc.robot.commands.Utilities.MoveClaw;
 import frc.robot.commands.Utilities.MoveExtend;
-import frc.robot.commands.Utilities.MoveIntake;
 import frc.robot.commands.Utilities.MovePivot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+
+import frc.robot.commands.ActiveLevel;
+import frc.robot.commands.Utilities.AutoScore;
+import frc.robot.commands.Utilities.ConstantClaw;
+import frc.robot.commands.Utilities.MoveIntake;
 import frc.robot.commands.Utilities.RotateExtension;
 import frc.robot.commands.Utilities.RotateLED;
 import frc.robot.commands.Utilities.SlowSwitch;
@@ -26,10 +30,7 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.LEDSub;
 import frc.robot.subsystems.RollerSub;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -125,16 +126,17 @@ public class RobotContainer {
    xboxOne.start().whileTrue(new RotateLED());
    xboxOne.back().whileTrue(new ZeroExtendEncoder());
 
-
-
-     JoystickButton directionButton = new JoystickButton(rightStick, 2);
-     directionButton.debounce(0.05).toggleOnTrue(new SwitchRobotDirection());
+    JoystickButton balanceButton = new JoystickButton(rightStick, 12);
+    balanceButton.whileTrue(new ActiveLevel(0.7, 0.6));
+ 
+    JoystickButton directionButton = new JoystickButton(rightStick, 2);
+    directionButton.debounce(0.05).toggleOnTrue(new SwitchRobotDirection());
 
      // directionButton.debounce(0.5).whileActiveOnce(((new SwitchDirection())));
-      JoystickButton slowButton = new JoystickButton(rightStick, 1);
-      slowButton.debounce(0.15).toggleOnTrue(new SlowSwitch());
+    JoystickButton slowButton = new JoystickButton(rightStick, 1);
+    slowButton.whileTrue(new ActiveLevel(1, 0.3));
 
-     JoystickButton autobalanceButton = new JoystickButton(rightStick, 12);
+    JoystickButton autobalanceButton = new JoystickButton(rightStick, 12);
     autobalanceButton.whileTrue(new ActiveLevel(0, 0));
      // xboxOne.x().whileTrue(new MoveExtend(0.25));
      // xboxOne.y().whileTrue(new MoveExtend(-0.25));
