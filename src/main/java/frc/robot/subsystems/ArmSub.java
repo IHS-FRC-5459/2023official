@@ -150,11 +150,18 @@ public double getPivotTicks(){
 
       }
     } else if(position ==4){
-      if((getTicks() < ticksToIntakePos + deadspace) && (getTicks() > ticksToIntakePos - deadspace))
+      if((getTicks() < ticksToIntakePos + (deadspace/2)) && (getTicks() > ticksToIntakePos - deadspace))
       {
         setExtend(0);
       } else if (getTicks() > (goalTicks)){//above
-        setExtend(-0.15);
+        if(getTicks() < ticksToPos[1])
+        {
+          setExtend(-0.15);
+
+        } else {
+          setExtend(-0.25);
+
+        }
       } else {
         setExtend(0.15);
 
