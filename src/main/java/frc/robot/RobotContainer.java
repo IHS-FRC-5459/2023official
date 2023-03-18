@@ -114,7 +114,7 @@ public class RobotContainer {
    //  xboxOne.x().whileTrue(new MovePivot(0.2));
    //  xboxOne.y().whileTrue(new MovePivot(-0.2));
 
-     xboxOne.x().debounce(0.2).onTrue(new AutoScore());
+     xboxOne.x().debounce(0.1).onTrue(new AutoScore());
     xboxOne.y().debounce(0.1).whileTrue(new ConstantClaw());
     
      xboxOne.b().whileTrue(new MoveIntake(0.35));
@@ -124,7 +124,8 @@ public class RobotContainer {
   //xboxOne.leftBumper().whileTrue(new MoveExtend(-0.25));
     //xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
    xboxOne.start().whileTrue(new RotateLED());
-   xboxOne.back().whileTrue(new ZeroExtendEncoder());
+   //xboxOne.back().whileTrue(new ZeroExtendEncoder());
+   xboxOne.back().debounce(0.1).whileTrue(new RotateExtension("I"));
 
     JoystickButton balanceButton = new JoystickButton(rightStick, 12);
     balanceButton.whileTrue(new ActiveLevel(0.7, 0.6));
