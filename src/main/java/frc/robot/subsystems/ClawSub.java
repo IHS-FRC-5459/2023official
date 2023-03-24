@@ -42,7 +42,7 @@ public class ClawSub extends SubsystemBase {
   }
 public void moveClaw(double xboxLeftTrigger, double xboxRightTrigger) {
   if(xboxRightTrigger == 2){
-    setClaw(0.4);
+    setClaw(0.45);
 
   } else {
     if(xboxLeftTrigger < 0.1 && xboxRightTrigger < 0.1)

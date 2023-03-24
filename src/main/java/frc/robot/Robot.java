@@ -61,12 +61,16 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.m_LEDSub.setBlinkIn(-0.45);
+
     //m_robotContainer = RobotContainer.getInstance();
     // sets u snedable chooser
     driveCommand = new Drive();
     autoChooser.addOption("Center", new Middle());
     autoChooser.addOption("Side Path", new Num6());
     autoChooser.addOption("Do Nothing", new NullAuto());
+        autoChooser.addOption("TEST BALANCE", new AutoBalance());
+
     autoChooser.setDefaultOption("Default (Side Path)", new Num6());
     
 

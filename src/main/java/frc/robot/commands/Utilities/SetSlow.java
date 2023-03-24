@@ -7,45 +7,29 @@ package frc.robot.commands.Utilities;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class SlowSwitch extends CommandBase {
-  /** Creates a new SlowSwitch. */
-  boolean val; 
-  public SlowSwitch() {
+public class SetSlow extends CommandBase {
+  /** Creates a new SetSlow. */
+  public SetSlow() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  public SlowSwitch(boolean b) {
-    val = b;
-}
-
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   // Robot.m_robotContainer.m_DriveSub.setSlow(val);
+        Robot.m_robotContainer.m_DriveSub.setSlow(true);
+
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.m_robotContainer.m_DriveSub.setSlow(val);
-
-    //Robot.m_robotContainer.m_DriveSub.setSlow(true);
-
-
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-   // boolean isS = Robot.m_robotContainer.m_DriveSub.getSlow();
-    //Robot.m_robotContainer.m_DriveSub.setSlow(!isS);
-    //Robot.m_robotContainer.m_DriveSub.setSlow(false);
-    Robot.m_robotContainer.m_DriveSub.setSlow(false);
-
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

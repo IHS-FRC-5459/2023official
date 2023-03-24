@@ -36,7 +36,7 @@ public class ActiveLevel extends CommandBase {
       sensitivity = 0.2;
       //double power = MathUtil.clamp(-1, 1, sensitivity * (Constants.drivetrain_kA * 9.81 * Math.cos(Math.toRadians(pitch))));
       double power = (Constants.drivetrain_kA * 9.81 * Math.sin(Math.toRadians(-pitch)));
-      power = MathUtil.clamp(-0.1,0.1, (power));
+      power = MathUtil.clamp(-0.078,0.078, (power));
       // moves robot
       if(pitch >0)
       {
@@ -51,7 +51,7 @@ power =0;      }
 
 if(Math.abs(pitch) < 7)
 {
-  power *= 0.3;
+  power *= 0.2;
 }
       //System.out.println(power+"\n");
       System.out.println(power);

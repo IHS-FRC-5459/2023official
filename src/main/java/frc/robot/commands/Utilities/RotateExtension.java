@@ -46,7 +46,7 @@ public class RotateExtension extends CommandBase {
 
     } else {
       if(dir < 0){
-        Robot.m_robotContainer.m_ArmSub.subPos();
+        Robot.m_robotContainer.m_ArmSub.setPos(0);
       }else{
         Robot.m_robotContainer.m_ArmSub.addPos();
   

@@ -30,6 +30,7 @@ public class RollerSub extends SubsystemBase{
     // set speed of roller
     public void setRoller(double pwr){
         neoR.set(pwr);
+        System.out.println(pwr);
       //  neoREN = neoR.getEncoder();
     }
 

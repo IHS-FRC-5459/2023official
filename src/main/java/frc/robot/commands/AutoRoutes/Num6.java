@@ -31,7 +31,7 @@ public class Num6   extends SequentialCommandGroup {
             new WaitCommand(1.6),
             new ParallelRaceGroup(new WaitCommand(0.5), new MoveClaw(-0.15)),
             new ParallelRaceGroup(new WaitCommand(0.2), new RotateExtension(-1), new RotateExtension(-1), new RotateExtension(-1)),
-            new DriveDistance(0.35, 194.40)
+            new DriveDistance(0.35, 186.40)
         );
     }
     }

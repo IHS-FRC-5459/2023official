@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSub extends SubsystemBase {
 
   int position = 0;
-int[] ticksToPos= {0,216,441}; //zero, low, mid, high
-int ticksToIntakePos = 69;
+int[] ticksToPos= {0,216,365}; //zero, low, mid, high -> 441 before
+int ticksToIntakePos = 84;
 
   //create falcon 500
 WPI_TalonFX pivotMotor = new WPI_TalonFX(10);
@@ -115,7 +115,15 @@ public double getPivotTicks(){
     // if touching limit switch, set encoder value to 0 and dont allow going backwards
     // if current ticks > goalTicks, move with -pwr to current ticks = goalticks +- deadspace
     // if current ticks < goalTicks, move with pwr to current ticks = goalticks +- deadspace
-    int goalTicks = ticksToPos[position];
+   int goalTicks = 0;
+    if(position != 4)
+   {
+     goalTicks = ticksToPos[position];
+
+   } else {
+    goalTicks = ticksToIntakePos;
+   }
+
 
     //reset enc
  
@@ -124,10 +132,10 @@ public double getPivotTicks(){
       if(!(getTicks()<8))
       {
         if(getTicks()<ticksToPos[1]){
-          setExtend(-0.15);
+          setExtend(-0.23);
 
         } else {
-          setExtend(-0.3);
+          setExtend(-0.33);
 
         }
       } else {
@@ -135,7 +143,7 @@ public double getPivotTicks(){
       }
     } else if (position == 2){
       if(getTicks() < goalTicks - deadspace){
-          setExtend(0.3);
+          setExtend(0.4);
       } else {
         setExtend(0);
       }
@@ -144,28 +152,27 @@ public double getPivotTicks(){
       {
         setExtend(0);
       } else if (getTicks() > (goalTicks)){//above
-        setExtend(-0.3);
+        setExtend(-0.35);
       } else {
-        setExtend(0.3);
+        setExtend(0.35);
 
       }
     } else if(position ==4){
-      if((getTicks() < ticksToIntakePos + (deadspace/2)) && (getTicks() > ticksToIntakePos - deadspace))
+      
+
+      
+      if((getTicks() < goalTicks + 25) && (getTicks() > goalTicks - 10))
       {
         setExtend(0);
-      } else if (getTicks() > (goalTicks)){//above
-        if(getTicks() < ticksToPos[1])
-        {
-          setExtend(-0.15);
-
-        } else {
-          setExtend(-0.25);
-
-        }
+      } else if (getTicks() > (goalTicks)  ){//above
+        setExtend(-0.2);
       } else {
-        setExtend(0.15);
+        setExtend(0.2);
 
       }
+
+   
+
     } else {
       setExtend(0);
 
@@ -223,13 +230,27 @@ public double getPivotTicks(){
 
   public void xboxPivot(double y) {
 
-    if(y > 0.9){
+    if(y > 0.6){
 //+
-      setPivot(0.135);
-    } else if (y < -0.9)
+      if (y > 0.9)
+      {
+        setPivot(0.125);
+
+      } else {
+        setPivot(0.1);
+
+      }
+    } else if (y < -0.6)
     {
-      //-
-      setPivot(-0.135);
+      if (y < -0.9)
+      {
+        setPivot(-0.2);
+
+      } else {
+        setPivot(-0.15);
+
+      }
+   
 
     } else {
       setPivot(0);

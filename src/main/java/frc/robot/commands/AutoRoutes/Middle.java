@@ -28,7 +28,7 @@ public class Middle extends SequentialCommandGroup{
          new ParallelRaceGroup(new WaitCommand(0.5), new MoveClaw(-0.15)),
          new ParallelRaceGroup(new WaitCommand(0.2), new RotateExtension(-1), new RotateExtension(-1), new RotateExtension(-1)),
          new DriveDistance(0.35, 194.40),
-            new DriveDistance(-0.35, 80.25),
+            new DriveDistance(-0.4, 78.25),
             new ActiveLevel(0.7, 0.6)
          );//   new ActiveLevel(0.01, 0.5)
         

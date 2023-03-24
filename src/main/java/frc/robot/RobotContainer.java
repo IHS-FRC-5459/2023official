@@ -17,10 +17,12 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 
 import frc.robot.commands.ActiveLevel;
 import frc.robot.commands.Utilities.AutoScore;
+import frc.robot.commands.Utilities.ClawToPos;
 import frc.robot.commands.Utilities.ConstantClaw;
 import frc.robot.commands.Utilities.MoveIntake;
 import frc.robot.commands.Utilities.RotateExtension;
 import frc.robot.commands.Utilities.RotateLED;
+import frc.robot.commands.Utilities.SetSlow;
 import frc.robot.commands.Utilities.SlowSwitch;
 import frc.robot.commands.Utilities.SwitchRobotDirection;
 import frc.robot.commands.Utilities.ZeroExtendEncoder;
@@ -114,31 +116,32 @@ public class RobotContainer {
    //  xboxOne.x().whileTrue(new MovePivot(0.2));
    //  xboxOne.y().whileTrue(new MovePivot(-0.2));
 
-     xboxOne.x().debounce(0.1).onTrue(new AutoScore());
-    xboxOne.y().debounce(0.1).whileTrue(new ConstantClaw());
+     xboxOne.x().debounce(0.05).onTrue(new AutoScore());
+    xboxOne.y().debounce(0.05).whileTrue(new ConstantClaw());
     
-     xboxOne.b().whileTrue(new MoveIntake(0.35));
-     xboxOne.a().whileTrue(new MoveIntake(-0.35));
-    xboxOne.leftBumper().debounce(0.1).whileTrue(new RotateExtension(-1));
-    xboxOne.rightBumper().debounce(0.1).whileTrue(new RotateExtension(1));
-  //xboxOne.leftBumper().whileTrue(new MoveExtend(-0.25));
-    //xboxOne.rightBumper().whileTrue(new MoveExtend(0.3)); 
+     xboxOne.b().whileTrue(new MoveIntake(0.55));
+     xboxOne.a().whileTrue(new MoveIntake(-0.55));
+   xboxOne.leftBumper().debounce(0.05).whileTrue(new RotateExtension(-1));
+    xboxOne.rightBumper().debounce(0.05).whileTrue(new RotateExtension(1));
+  xboxOne.leftBumper().whileTrue(new MoveExtend(-0.1));
+    xboxOne.rightBumper().whileTrue(new MoveExtend(0.1)); 
    xboxOne.start().whileTrue(new RotateLED());
    //xboxOne.back().whileTrue(new ZeroExtendEncoder());
-   xboxOne.back().debounce(0.1).whileTrue(new RotateExtension("I"));
-
-    JoystickButton balanceButton = new JoystickButton(rightStick, 12);
+ // xboxOne.back().debounce(0.1).whileTrue(new RotateExtension("I"));
+//xboxOne.back().debounce(0.1).onTrue(new ClawToPos());
+  
+JoystickButton balanceButton = new JoystickButton(rightStick, 12);
     balanceButton.whileTrue(new ActiveLevel(0.7, 0.6));
  
     JoystickButton directionButton = new JoystickButton(rightStick, 2);
     directionButton.debounce(0.05).toggleOnTrue(new SwitchRobotDirection());
 
+    JoystickButton autoIntakeButton = new JoystickButton(rightStick, 11);
+    autoIntakeButton.debounce(0.05).onTrue(new AutoIntake());
+
      // directionButton.debounce(0.5).whileActiveOnce(((new SwitchDirection())));
     JoystickButton slowButton = new JoystickButton(rightStick, 1);
-    slowButton.whileTrue(new ActiveLevel(1, 0.3));
-
-    JoystickButton autobalanceButton = new JoystickButton(rightStick, 12);
-    autobalanceButton.whileTrue(new ActiveLevel(0, 0));
+    slowButton.whileTrue(new SlowSwitch(true));
      // xboxOne.x().whileTrue(new MoveExtend(0.25));
      // xboxOne.y().whileTrue(new MoveExtend(-0.25));
       //xboxOne.leftBumper().whileTrue(new MoveClaw(0.2));

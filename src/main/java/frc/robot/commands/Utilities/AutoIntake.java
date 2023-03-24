@@ -18,9 +18,7 @@ public class AutoIntake extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
-    new ParallelRaceGroup(new WaitCommand(0.4), new MovePivot(0.2)),
-    new ParallelRaceGroup(new WaitCommand(0.25), new MoveClaw(-0.4)),
-    new ParallelRaceGroup(new WaitCommand(0.3), new MovePivot(-0.3), new MoveIntake(0.35))
-    );
+    new ParallelRaceGroup(new DriveDistance(-0.35, 12), new MoveIntake(-0.35)),
+    new DriveDistance(0.2, 4)    );
   }
 }

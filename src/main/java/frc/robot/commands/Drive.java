@@ -29,15 +29,22 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double s = Robot.m_robotContainer.m_DriveSub.getSlow() ? 1 : 0.5;
-    // sets motors to joystick
 
-    if(Robot.m_robotContainer.m_DriveSub.getDirection() < 0)
-    {
-      Robot.m_robotContainer.m_DriveSub.setDrive(  s * rightJoystick.getY(),   s * leftJoystick.getY());
+    if(Robot.m_robotContainer.leftStick.getRawButton(1)){
+      Robot.m_robotContainer.m_DriveSub.setDrive(0.15* -leftJoystick.getY(), 0.15* -rightJoystick.getY());
+
     } else {
-      Robot.m_robotContainer.m_DriveSub.setDrive(s* -leftJoystick.getY(), s* -rightJoystick.getY());
+      double s = Robot.m_robotContainer.m_DriveSub.getSlow() ? 1 : 0.5;
+      // sets motors to joystick
+  
+      if(Robot.m_robotContainer.m_DriveSub.getDirection() < 0)
+      {
+        Robot.m_robotContainer.m_DriveSub.setDrive(  s * rightJoystick.getY(),   s * leftJoystick.getY());
+      } else {
+        Robot.m_robotContainer.m_DriveSub.setDrive(s* -leftJoystick.getY(), s* -rightJoystick.getY());
+      }
     }
+   
 
   }
 
